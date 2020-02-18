@@ -1,9 +1,8 @@
 <template>
   <div>
-    <UserInfo/>
+    <UserInfo />
     <!-- <WidgetsBrand /> -->
     <WidgetsDropdown />
-
     <!-- <UserDailyCalendar/> -->
     <CRow>
       <CCol md="12">
@@ -326,22 +325,19 @@
 </template>
 
 <script>
-import MainChartExample from "./charts/MainChartExample";
 import UserInfo from "./components/UserInfo";
 import WidgetsDropdown from "./components/WidgetsDropdown";
-import WidgetsBrand from "./widgets/WidgetsBrand";
 
 export default {
   name: "Dashboard",
   components: {
-    MainChartExample,
     WidgetsDropdown,
-    WidgetsBrand,
     UserInfo
   },
   data() {
     return {
       selected: "Month",
+      dialog: false,
       tableItems: [
         {
           level: { url: "img/avatars/1.jpg", status: "success" },
