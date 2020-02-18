@@ -1,7 +1,7 @@
 <template>
   <CRow>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="info" header="9,823" text="제출수">
+      <CWidgetDropdown color="info" :header="user_info.boj_submission_count" text="제출수">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -9,26 +9,7 @@
             class="mt-3 mx-3"
             style="height:70px"
             :data-points="[65, 59, 84, 84, 51, 55, 40]"
-            point-hover-background-color="primary"
-            label="Members"
-            labels="months"
-          />
-        </template>
-      </CWidgetDropdown>
-    </CCol>
-
-    <CCol sm="6" lg="3">
-      <CWidgetDropdown color="info" header="9.823" text="맞은문제">
-        <template #default>
-        </template>
-        <template #footer>
-          <CChartLineSimple
-            pointed
-            class="mt-3 mx-3"
-            style="height:70px"
-            :data-points="[1, 18, 9, 17, 34, 22, 11]"
             point-hover-background-color="info"
-            :options="{ elements: { line: { tension: 0.00001 }}}"
             label="Members"
             labels="months"
           />
@@ -36,9 +17,8 @@
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="danger" header="9.823" text="도전했지만 못푼문제">
-        <template #default>
-        </template>
+      <CWidgetDropdown color="danger" :header="user_info.solved" text="도전한 문제">
+        <template #default></template>
         <template #footer>
           <CChartLineSimple
             class="mt-3"
@@ -54,17 +34,25 @@
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="warning" header="9.823%" text="성공율">
+      <CWidgetDropdown color="info" :header="user_info.boj_solved_count" text="맞은문제">
+        <template #default></template>
+        <template #footer>
+          <CChartLineSimple
+            pointed
+            class="mt-3 mx-3"
+            style="height:70px"
+            :data-points="[1, 18, 9, 17, 34, 22, 11]"
+            point-hover-background-color="info"
+            :options="{ elements: { line: { tension: 0.00001 }}}"
+            label="Members"
+            labels="months"
+          />
+        </template>
+      </CWidgetDropdown>
+    </CCol>
+    <CCol sm="6" lg="3">
+      <CWidgetDropdown color="warning" header="100%" text="성공율">
         <template #default>
-          <CDropdown color="transparent p-0" placement="bottom-end">
-            <template #toggler-content>
-              <CIcon name="cil-settings" />
-            </template>
-            <CDropdownItem>Action</CDropdownItem>
-            <CDropdownItem>Another action</CDropdownItem>
-            <CDropdownItem>Something else here...</CDropdownItem>
-            <CDropdownItem disabled>Disabled action</CDropdownItem>
-          </CDropdown>
         </template>
         <template #footer>
           <CChartBarSimple
@@ -82,9 +70,34 @@
 
 <script>
 import { CChartLineSimple, CChartBarSimple } from "../charts/index.js";
-
+import axios from "axios";
 export default {
-  name: "WidgetsDropdown",
-  components: { CChartLineSimple, CChartBarSimple }
+  props: {
+    user_id: {
+      type: String,
+      default: "-"
+    }
+  },
+  name: "UserInfo",
+  components: { CChartLineSimple, CChartBarSimple },
+  data() {
+    return {
+      user_info: {
+        user_id: "-",
+        solved: "0",
+        boj_submission_count: "0",
+        boj_solved_count: "0"
+      }
+    };
+  },
+
+  mounted() {
+    return axios
+      .get(`http://13.125.147.223:8080/user/${this.user_id}`)
+      .then(res => {
+        this.user_info = res.data.data;
+        return res.data.dta;
+      });
+  }
 };
 </script>

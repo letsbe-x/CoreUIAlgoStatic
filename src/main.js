@@ -6,6 +6,7 @@ import { iconsSet as icons } from './assets/icons/icons.js'
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import store from './store'
 
 Vue.config.performance = true
 Vue.use(CoreuiVue)
@@ -16,6 +17,7 @@ new Vue({
   icons,
   template: '<App/>',
   vuetify,
+  store,
 
   components: {
     App
