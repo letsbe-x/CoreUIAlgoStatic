@@ -10,7 +10,7 @@
             :left-header="user_info.level"
             left-footer="Rank"
           >
-            <h1 class="display-1" style="height:100px; line-height: 100px;">BackJoon</h1>
+            <h1 class="display-1" style="height:100px; line-height: 100px;">BaekJoon</h1>
           </CWidgetBrand>
         </CCol>
         <CCol sm="4" md="4">
