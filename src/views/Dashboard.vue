@@ -1,8 +1,8 @@
 <template>
   <div>
-    <UserRank :user_id="id"/>
-    <UserInfo :user_id="id"/>
-    <UserDailyCalendar :user_id="id"/>
+    <!-- <UserRank :user_id="id"/> -->
+    <!-- <UserInfo :user_id="id"/> -->
+    <!-- <UserDailyCalendar :user_id="id"/> -->
     <UserSubmitList :user_id="id"/>
   </div>
 </template>
