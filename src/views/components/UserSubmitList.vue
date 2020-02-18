@@ -11,6 +11,9 @@
         head-color="light"
         no-sorting
       >
+        <td slot="result" class="text-center" slot-scope="{item}">
+          <CBadge style="font-size:100%" :color="getBadge(item.result)">{{item.result}}</CBadge>
+        </td>
         <td slot="rankimg" class="text-center" slot-scope="{item}">
           <div class="c-avatar">
             <img :src="item.rankimg" class="c-avatar-img" />
@@ -30,10 +33,10 @@
               <strong>{{item.time}} ms</strong>
             </div>
             <div class="float-right">
-              <small class="text-muted">상위 몇 %</small>
+              <small class="text-muted">상위 0 %</small>
             </div>
           </div>
-          <!-- <CProgress class="progress-xs" v-model="item.time.value" :color="color(item.time.value)" /> -->
+          <CProgress class="progress-xs" v-model="item.time.value" :color="color(item.time.value)" />
         </td>
         <td slot="memory" slot-scope="{item}">
           <div class="clearfix">
@@ -41,18 +44,14 @@
               <strong>{{item.memory}} KB</strong>
             </div>
             <div class="float-right">
-              <small class="text-muted">상위 몇 %</small>
+              <small class="text-muted">상위 0 %</small>
             </div>
           </div>
-          <!-- <CProgress
+          <CProgress
             class="progress-xs"
             v-model="item.memory.value"
             :color="color(item.memory.value)"
-          />-->
-        </td>
-        <td slot="status" slot-scope="{item}" class="text-center">
-          <!-- <CIcon :name="item.status.icon" height="25" /> -->
-          <div>임시 : {{item.result}}</div>
+          />
         </td>
         <td slot="activity" slot-scope="{item}">
           <!-- <strong>{{item.activity}}</strong> -->
@@ -78,6 +77,39 @@ export default {
   },
   data() {
     return {
+      //구려;;;
+      testItems: [
+        {
+          rankimg: "",
+          problem_title: "A+B",
+          language: "JAVA",
+          time: "1",
+          memory: "100",
+          result: "성공",
+          from_now: "10 sec ago",
+          _classes: "table-success"
+        },
+        {
+          rankimg: "",
+          problem_title: "A+B",
+          language: "JAVA",
+          time: "1",
+          memory: "100",
+          result: "실패",
+          from_now: "10 sec ago",
+          _classes: "table-danger"
+        },
+        {
+          rankimg: "",
+          problem_title: "A+B",
+          language: "JAVA",
+          time: "1",
+          memory: "100",
+          result: "그외",
+          from_now: "10 sec ago",
+          _classes: "table-warning"
+        }
+      ],
       tableItems: [
         {
           rankimg: "",
@@ -90,12 +122,12 @@ export default {
         }
       ],
       tableFields: [
-        { key: "rankimg", label: "난이도", _classes: "text-center" },
+        { key: "result", label: "결과", _classes: "text-center" },
         { key: "problem_title", label: "제목", _classes: "text-center" },
+        { key: "rankimg", label: "난이도", _classes: "text-center" },
         { key: "language", _classes: "text-center" },
         { key: "time" },
         { key: "memory" },
-        { key: "result", label: "결과", _classes: "text-center" },
         { key: "from_now" }
       ],
       loading: false,
@@ -218,9 +250,62 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    //성공 실패 badge 추가!!!!
+    getBadge(result) {
+      //맞았습니다 : Success
+      //result-ac
+      //틀렸습니다 : Danger
+      //result-wa   / 틀렸습니다.
+      //result-mle  / 메모리 초과
+      //result-tle  / 시간초과
+
+      //런타임에러 :Warning
+      //result-rte
+      //등등
+      console.log(result);
+      switch (result) {
+        case "result-ac":
+          return "success";
+        case "result-wa":
+        case "result-mle":
+        case "result-tle":
+          return "danger";
+        default:
+          return "warning";
+      }
     }
   },
   filters: {
+    //테이블 컬러 선택
+    //구립니다;;;
+    addClassColor: function(result) {
+      //맞았습니다 : Success
+      //result-ac
+      //틀렸습니다 : Danger
+      //result-wa   / 틀렸습니다.
+      //result-mle  / 메모리 초과
+      //result-tle  / 시간초과
+
+      //런타임에러 :Warning
+      //result-rte
+      //등등
+      console.log(result);
+      switch (result) {
+        case "result-ac":
+          return "table-success";
+        case "result-wa":
+        case "result-mle":
+        case "result-tle":
+          return "table-danger";
+        default:
+          return "table-warning";
+      }
+    }
+
+    // 시간 메모리 없을때 - Null
+
+    //
   }
 };
 </script>
