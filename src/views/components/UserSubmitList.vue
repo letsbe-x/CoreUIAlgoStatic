@@ -28,7 +28,9 @@
         </td>
         <td slot="title" slot-scope="{item}">
           <div>{{item.problem_title}}</div>
-          <div class="small text-muted">'분류들'</div>
+          <!--분류모음
+           <div class="small text-muted" v-for(data in item.classification)>{{data.full_name_ko}}</div>
+           -->
         </td>
         <td slot="language" slot-scope="{item}" class="text-center">
           <div>{{item.language}}</div>
