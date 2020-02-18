@@ -12,11 +12,18 @@
         no-sorting
       >
         <td slot="result" class="text-center" slot-scope="{item}">
-          <CBadge style="font-size:100%" :color="getBadge(item.result)">{{item.result}}</CBadge>
+          <CBadge style="font-size:100%" :color="getBadge(item.result)">{{item.result|resultToText}}</CBadge>
         </td>
+
         <td slot="rankimg" class="text-center" slot-scope="{item}">
           <div class="c-avatar">
-            <img :src="item.rankimg" class="c-avatar-img" />
+            <!--hover-->
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <img :src="item.level|levelToTierImage" class="c-avatar-img" :title="item.level" v-on="on" />
+              </template>
+              <span>{{item.level|levelToTier}}</span>
+            </v-tooltip>
           </div>
         </td>
         <td slot="title" slot-scope="{item}">
@@ -30,7 +37,7 @@
         <td slot="time" slot-scope="{item}">
           <div class="clearfix">
             <div class="float-left">
-              <strong>{{item.time}} ms</strong>
+              <strong>{{item.time|intNotNull}} ms</strong>
             </div>
             <div class="float-right">
               <small class="text-muted">상위 0 %</small>
@@ -41,7 +48,7 @@
         <td slot="memory" slot-scope="{item}">
           <div class="clearfix">
             <div class="float-left">
-              <strong>{{item.memory}} KB</strong>
+              <strong>{{item.memory|intNotNull}} KB</strong>
             </div>
             <div class="float-right">
               <small class="text-muted">상위 0 %</small>
@@ -68,6 +75,10 @@ import "moment/min/locales";
 moment.locale("ko");
 import axios from "axios";
 const _SERVER = "http://13.125.147.223:8080/";
+import levelToTier from "../../filters/levelToTier.js";
+import levelToTierImage from "../../filters/levelToTierImage.js";
+import resultToText from "../../filters/resultToText.js";
+
 export default {
   props: {
     user_id: {
@@ -277,6 +288,9 @@ export default {
     }
   },
   filters: {
+    resultToText,
+    levelToTier,
+    levelToTierImage,
     //테이블 컬러 선택
     //구립니다;;;
     addClassColor: function(result) {
@@ -301,11 +315,14 @@ export default {
         default:
           return "table-warning";
       }
-    }
+    },
 
     // 시간 메모리 없을때 - Null
-
-    //
+    intNotNull: function(val) {
+      if (val === "0" || val === "") return 0;
+      //콤마추가
+      else return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   }
 };
 </script>
