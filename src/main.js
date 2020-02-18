@@ -3,6 +3,9 @@ import App from './App'
 import router from './router'
 import CoreuiVue from '@coreui/vue'
 import { iconsSet as icons } from './assets/icons/icons.js'
+import vuetify from './plugins/vuetify';
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.performance = true
 Vue.use(CoreuiVue)
@@ -12,7 +15,9 @@ new Vue({
   router,
   icons,
   template: '<App/>',
+  vuetify,
+
   components: {
     App
-  },
+  }
 })
