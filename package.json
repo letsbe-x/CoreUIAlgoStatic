@@ -8,21 +8,12 @@
     "github": "https://github.com/coreui",
     "twitter": "https://twitter.com/core_ui"
   },
-  "contributors": [
-    {
-      "name": "CoreUI Team",
-      "url": "https://github.com/orgs/coreui/people"
-    }
-  ],
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2019 creativeLabs Łukasz Holeczek",
-  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
     "clearCache": "jest --clearCache",
     "release": "npm-run-all clearCache lint build test:unit test:e2e"
   },
@@ -32,35 +23,50 @@
     "@coreui/utils": "^1.0.0",
     "@coreui/vue": "^3.0.0-beta.4",
     "@coreui/vue-chartjs": "^1.0.2",
+    "@mdi/font": "^3.6.95",
+    "roboto-fontface": "*",
     "vue": "^2.6.10",
-    "vue-router": "^3.1.3"
+    "vue-router": "^3.1.3",
+    "vuetify": "^2.2.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.5",
     "@vue/cli-plugin-babel": "^4.1.1",
     "@vue/cli-plugin-e2e-nightwatch": "^4.1.1",
     "@vue/cli-plugin-eslint": "^4.1.1",
     "@vue/cli-plugin-unit-jest": "^4.1.1",
     "@vue/cli-service": "^4.1.1",
     "@vue/test-utils": "1.0.0-beta.29",
-    "@babel/core": "^7.7.5",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
-    "core-js": "^3.4.8",
     "chromedriver": "^79.0.0",
+    "core-js": "^3.4.8",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.0.1",
     "node-sass": "^4.13.0",
     "npm-run-all": "^4.1.5",
+    "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-cli-plugin-vuetify": "^2.0.5",
+    "vue-template-compiler": "^2.6.10",
+    "vuetify-loader": "^1.3.0"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 9"
   ],
+  "contributors": [
+    {
+      "name": "CoreUI Team",
+      "url": "https://github.com/orgs/coreui/people"
+    }
+  ],
+  "copyright": "Copyright 2019 creativeLabs Łukasz Holeczek",
   "engines": {
     "node": ">= 8.10.x",
     "npm": ">= 5.6.0"
-  }
+  },
+  "homepage": "http://coreui.io",
+  "license": "MIT"
 }
