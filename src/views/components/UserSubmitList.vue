@@ -47,14 +47,14 @@
               <strong>{{item.time|intNotNull}} ms</strong>
             </div>
             <div v-if="success(item.result)" class="float-right">
-              <small class="text-muted">상위 0 %</small>
+              <small class="text-muted">{{item.timeRank|toPercent}}</small>
             </div>
           </div>
           <CProgress
             class="progress-xs"
             v-if="success(item.result)"
-            v-model="item.time.value"
-            :color="color(item.time.value)"
+            v-model="item.timeRank"
+            :color="color(item.timeRank)"
           />
         </td>
         <td slot="memory" slot-scope="{item}">
@@ -63,14 +63,14 @@
               <strong>{{item.memory|intNotNull}} KB</strong>
             </div>
             <div v-if="success(item.result)" class="float-right">
-              <small class="text-muted">상위 0 %</small>
+              <small class="text-muted">{{item.memoryRank|toPercent}}</small>
             </div>
           </div>
           <CProgress
             class="progress-xs"
             v-if="success(item.result)"
-            v-model="item.memory.value"
-            :color="color(item.memory.value)"
+            v-model="item.memoryRank"
+            :color="color(item.memoryRank)"
           />
         </td>
         <td slot="activity" slot-scope="{item}">
@@ -104,11 +104,12 @@ import moment from "moment";
 import "moment/min/locales";
 moment.locale("ko");
 import axios from "axios";
-const _SERVER = "http://13.125.147.223:8080";
+
 import levelToTier from "../../filters/levelToTier.js";
 import levelToTierImage from "../../filters/levelToTierImage.js";
 import resultToText from "../../filters/resultToText.js";
 
+const _SERVER = "http://13.125.147.223:8080";
 export default {
   props: {
     user_id: {
@@ -119,6 +120,7 @@ export default {
   data() {
     return {
       //구려;;;
+      test: 50.100,
       testItems: [
         {
           rankimg: "",
@@ -190,16 +192,25 @@ export default {
   },
 
   methods: {
+    calculator(submission_id, attr) {
+      let url = `${_SERVER}/stastic/user/submit/rank/${submission_id}/${attr}/`;
+      return axios
+        .get(url)
+        .then(res => {
+          return res.data.rank;
+        })
+        .catch(err => console.log(err));
+    },
     color(value) {
       let $color;
       if (value <= 25) {
-        $color = "info";
-      } else if (value > 25 && value <= 50) {
-        $color = "success";
-      } else if (value > 50 && value <= 75) {
-        $color = "warning";
-      } else if (value > 75 && value <= 100) {
         $color = "danger";
+      } else if (value > 25 && value <= 50) {
+        $color = "warning";
+      } else if (value > 50 && value <= 75) {
+        $color = "success";
+      } else if (value > 75 && value <= 100) {
+        $color = "info";
       }
       return $color;
     },
@@ -251,9 +262,28 @@ export default {
         newRecordArr.forEach(element => {
           element.rankimg =
             "https://solved.ac/res/tier-small/" + element.level + ".svg";
+          element.timeRank = 0;
+          element.memoryRank = 0;
           if (element.result == "result-ac") {
             element.isresultAccept = true;
+            axios
+              .get(
+                `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/time/`
+              )
+              .then(res => {
+                element.timeRank = (1-res.data.rank)*100;
+              })
+              .catch(err => console.log(err));
+            axios
+              .get(
+                `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/memory/`
+              )
+              .then(res => {
+                element.memoryRank = (1-res.data.rank)*100;
+              })
+              .catch(err => console.log(err));
           }
+
           //let d= moment(element.date+'000',"x").fromNow();
           let d = moment(new Date(parseInt(element.date) * 1000)).fromNow();
           element.from_now = d;
@@ -324,6 +354,14 @@ export default {
     resultToText,
     levelToTier,
     levelToTierImage,
+    toPercent: function(data) {
+      let result =
+        data >= 50
+          ? "상위 " + (100 - data).toFixed(2) + "%"
+          : "하위 " + data.toFixed(2) + "%";
+      console.log(result);
+      return result;
+    },
     //테이블 컬러 선택
     //구립니다;;;
     addClassColor: function(result) {

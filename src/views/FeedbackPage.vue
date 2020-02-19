@@ -10,24 +10,22 @@
       </v-flex>
       <v-flex xs12 sm12 md12 lg12 x12 align="center">
         <v-card class="mx-2 pa-2 elevation-3">
-          <div class="flex display-2 font-weight-bold">가장 많이 푼 알고리즘 유형</div>
-
-          <!-- <UserSolvedAlgoTypeGraph :userid="userid"></UserSolvedAlgoTypeGraph> -->
+          <div class="flex display-1 font-weight-bold">가장 많이 푼 알고리즘 유형</div>
+          <!-- UserproblemsMistakeTypeChart -->
+          <UserSolvedAlgoTypeGraph :user_id="user_id"></UserSolvedAlgoTypeGraph>
         </v-card>
       </v-flex>
       <v-flex xs12 sm12 md12 lg12 x12 align="center">
         <v-card class="mx-2 pa-2 elevation-3">
           <div class="flex display-2 font-weight-bold">가장 많이 실수하는 알고리즘 유형</div>
-
-          <!-- <UserproblemsMistakeTypeChart :userid="userid"></UserproblemsMistakeTypeChart> -->
+          <UserproblemsMistakeTypeChart :user_id="user_id"></UserproblemsMistakeTypeChart>
         </v-card>
       </v-flex>
 
       <v-flex xs12 sm12 md12 lg12 x12 align="center">
         <v-card class="mx-2 pa-2 elevation-3">
           <div class="flex display-2 font-weight-bold">가장 많이 실수하는 알고리즘 유형</div>
-
-          <!-- <GeneralComment></GeneralComment> -->
+          <GeneralComment :user_id="user_id"></GeneralComment>
         </v-card>
       </v-flex>
     </v-layout>

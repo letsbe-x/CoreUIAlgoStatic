@@ -13,31 +13,32 @@
         </CCardBody>
         <CCardFooter>
           <!-- 상위 5개 푸터 -->
+          <!--@TODO : map/key를 통해서 맞춰 뽑기 -->
           <CRow class="text-center">
             <CCol md sm="12" class="mb-sm-2 mb-0">
               <div class="text-muted">{{chartData[1][0]}}</div>
-              <strong>{{chartData[1][1]}} (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="success" :value="40" />
+              <strong>{{chartData[1][1]}}</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="success" :value="80" />
             </CCol>
             <CCol md sm="12" class="mb-sm-2 mb-0">
               <div class="text-muted">{{chartData[2][0]}}</div>
-              <strong>{{chartData[2][1]}} (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="info" :value="20" />
+              <strong>{{chartData[2][1]}}</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="info" :value="60" />
             </CCol>
             <CCol md sm="12" class="mb-sm-2 mb-0">
               <div class="text-muted">{{chartData[3][0]}}</div>
-              <strong>{{chartData[3][1]}} (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="warning" :value="60" />
-            </CCol>
-            <CCol md sm="12" class="mb-sm-2 mb-0">
-              <div class="text-muted">{{chartData[4][0]}}</div>
-              <strong>{{chartData[4][1]}} (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="80" />
+              <strong>{{chartData[3][1]}}</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="warning" :value="30" />
             </CCol>
             <!-- <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
-              <div class="text-muted">{{chartData[5][0]}} (0%)</div>
-              <strong>{{chartData[5][1]}} (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" :value="40" />
+              <div class="text-muted">{{chartData[4][0]}}</div>
+              <strong>{{chartData[4][1]}}</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="20" />
+            </CCol>
+            <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
+              <div class="text-muted">{{chartData[5][0]}}</div>
+              <strong>{{chartData[5][1]}}</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="10" />
             </CCol> -->
           </CRow>
         </CCardFooter>
@@ -48,7 +49,6 @@
 
 <script>
 import { GChart } from "vue-google-charts";
-import { CChartLine } from "@coreui/vue-chartjs";
 
 //@TODO : SERVER CONFIG HIDE
 const _SERVER = "http://13.125.147.223:8080";
@@ -64,7 +64,6 @@ export default {
   },
   components: {
     GChart,
-    CChartLine
   },
 
   mounted() {
