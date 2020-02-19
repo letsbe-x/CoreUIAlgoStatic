@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <UserRank :user_id="id"/>
     <UserInfo :user_id="id"/>
     <UserDailyCalendar :user_id="id"/>
@@ -18,7 +19,7 @@ export default {
   props: {
     id: {
       type: String,
-      default: '-'
+      default: 'sdm821'
     }
   },
   components: {
@@ -26,6 +27,7 @@ export default {
     UserInfo,
     UserDailyCalendar,
     UserSubmitList
+
   },
 };
 </script>
