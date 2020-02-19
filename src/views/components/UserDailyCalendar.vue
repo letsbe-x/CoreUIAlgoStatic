@@ -14,30 +14,25 @@
         </CCardBody>
         <CCardFooter>
           <CRow class="text-center">
-            <CCol md sm="12" class="mb-sm-2 mb-0">
+            <CCol md sm="12" class="mb-sm-3 mb-0">
               <div class="text-muted">제출수</div>
-              <strong>29.703 Users (40%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="success" :value="40" />
+              <strong>0 (0%)</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="success" :value="0" />
             </CCol>
-            <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
-              <div class="text-muted">성공률</div>
-              <strong>24.093 Users (20%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="info" :value="20" />
+            <CCol md sm="12" class="mb-sm-3 mb-0 d-md-down-none">
+              <div class="text-muted">도전한 문제</div>
+              <strong>0 (0%)</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="info" :value="0" />
             </CCol>
-            <CCol md sm="12" class="mb-sm-2 mb-0">
-              <div class="text-muted">맞은문제</div>
-              <strong>78.706 Views (60%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="warning" :value="60" />
+            <CCol md sm="12" class="mb-sm-3 mb-0">
+              <div class="text-muted">맞은 문제</div>
+              <strong>0 (0%)</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="warning" :value="0" />
             </CCol>
-            <CCol md sm="12" class="mb-sm-2 mb-0">
-              <div class="text-muted">시도했지만 못푼문제</div>
-              <strong>22.123 Users (80%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="80" />
-            </CCol>
-            <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
-              <div class="text-muted">ㅇㅇㅇ</div>
-              <strong>Average Rate (40.15%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" :value="40" />
+            <CCol md sm="12" class="mb-sm-3 mb-0">
+              <div class="text-muted">성공율</div>
+              <strong>0 (0%)</strong>
+              <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="0" />
             </CCol>
           </CRow>
         </CCardFooter>

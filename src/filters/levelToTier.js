@@ -4,7 +4,7 @@ const tiers = {
   2: "Gold",
   3: "Platinum",
   4: "Diamond",
-  5: "Challenge"
+  5: "Ruby"
 };
 const levels = {
   0: "I",

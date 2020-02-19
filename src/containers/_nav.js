@@ -5,7 +5,7 @@ export default [
       {
         _name: 'CSidebarNavItem',
         name: 'Dashboard',
-        to: '/dashboard',
+        to: 'dashboard',
         icon: 'cil-speedometer',
         badge: {
           color: 'primary',
@@ -15,7 +15,7 @@ export default [
       {
         _name: 'CSidebarNavItem',
         name: 'Feedback',
-        to: '/dashboard',
+        to: 'feedback',
         icon: 'cil-puzzle',
         // badge: {
         //   color: 'primary',
@@ -25,7 +25,7 @@ export default [
       {
         _name: 'CSidebarNavItem',
         name: 'Recommand',
-        to: '/dashboard',
+        to: 'recommend',
         icon: 'cil-star',
         // badge: {
         //   color: 'primary',
