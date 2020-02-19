@@ -57,6 +57,8 @@ const Register = () => import("@/views/pages/Register");
 const Users = () => import("@/views/users/Users");
 const User = () => import("@/views/users/User");
 
+const FeedbackPage =() => import("@/views/FeedbackPage");
+const RecommendAlgo =() => import("@/views/RecommendAlgo");
 Vue.use(Router);
 
 export default new Router({
