@@ -115,7 +115,39 @@ export default {
     user_id: {
       type: String,
       default: "-"
+    },
+    dailyData:{
+      type: Array
     }
+  },
+  watch: { 
+
+    dailyData:{
+        handler(){
+         this.tableItems=this.dailyData;
+        var now = Date.now(0);
+
+   
+        this.tableItems.forEach(element => {
+          element.rankimg =
+            "https://solved.ac/res/tier-small/" + element.level + ".svg";
+          if (element.result == "result-ac") {
+            element.isresultAccept = true;
+          }
+          //let d= moment(element.date+'000',"x").fromNow();
+          console.log('ts:',element.date);
+          let d = moment(new Date(parseInt(element.date) * 1000)).fromNow();
+          element.from_now = d;
+          element.date = moment(new Date(parseInt(element.date) * 1000)).format(
+            "YYYY-MM-DD HH:mm:ss"
+          );
+        });
+
+     
+        }
+
+    }
+   
   },
   data() {
     return {
@@ -184,6 +216,9 @@ export default {
   },
 
   mounted() {
+    if(this.dailyData!=null){
+      this.dailyData=[];
+    }
     this.tableItems = [];
     this.search();
     this.getPaginationInfo().then(response => {
@@ -252,7 +287,7 @@ export default {
 
     search: function(mode) {
       if (mode == "search") this.tableItems = [];
-
+      
       var now = Date.now(0);
 
       this.getRecentSubmitRecord().then(response => {

@@ -27,6 +27,7 @@ export default {
     UserInfo,
     UserDailyCalendar,
     UserSubmitList
+
   },
 };
 </script>
