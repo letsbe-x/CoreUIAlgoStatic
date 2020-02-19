@@ -1,7 +1,7 @@
 <template>
   <CRow>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="info" :header="Number(user_info.boj_submission_count)" text="제출수">
+      <CWidgetDropdown color="info" :header="user_info.boj_submission_count.toString()" text="제출수">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -15,7 +15,7 @@
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="danger" :header="Number(user_info.solved)" text="도전한 문제">
+      <CWidgetDropdown color="danger" :header="user_info.solved.toString()" text="도전한 문제">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -34,7 +34,7 @@
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="info" :header="Number(user_info.boj_solved_count)" text="맞은문제">
+      <CWidgetDropdown color="info" :header="user_info.boj_solved_count.toString()" text="맞은문제">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -91,9 +91,9 @@ export default {
     return {
       user_info: {
         user_id: "-",
-        solved: 0,
-        boj_submission_count: 0,
-        boj_solved_count: 0
+        solved: "0",
+        boj_submission_count: "0",
+        boj_solved_count: "0"
       }
     };
   },
@@ -108,7 +108,8 @@ export default {
       .get(`${_SERVER}/user/${this.user_id}`)
       .then(res => {
         this.user_info = res.data.data;
-        console.warn(this.user_info);
+
+        // @TODO  : 임시방편 null처리  / String 처리
         return res.data.data;
       })
       .catch(() => {

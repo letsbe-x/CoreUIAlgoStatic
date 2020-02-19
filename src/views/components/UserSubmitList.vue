@@ -20,7 +20,12 @@
             <!--hover-->
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <img :src="item.level|levelToTierImage" class="c-avatar-img" :title="item.level" v-on="on" />
+                <img
+                  :src="item.level|levelToTierImage"
+                  class="c-avatar-img"
+                  :title="item.level"
+                  v-on="on"
+                />
               </template>
               <span>{{item.level|levelToTier}}</span>
             </v-tooltip>
@@ -30,7 +35,7 @@
           <div>{{item.problem_title}}</div>
           <!--분류모음
            <div class="small text-muted" v-for(data in item.classification)>{{data.full_name_ko}}</div>
-           -->
+          -->
         </td>
         <td slot="language" slot-scope="{item}" class="text-center">
           <div>{{item.language}}</div>
@@ -41,23 +46,24 @@
             <div class="float-left">
               <strong>{{item.time|intNotNull}} ms</strong>
             </div>
-            <div class="float-right">
+            <div v-if="success(item.result)" class="float-right">
               <small class="text-muted">상위 0 %</small>
             </div>
           </div>
-          <CProgress class="progress-xs" v-model="item.time.value" :color="color(item.time.value)" />
+          <CProgress class="progress-xs" v-if="success(item.result)" v-model="item.time.value" :color="color(item.time.value)" />
         </td>
         <td slot="memory" slot-scope="{item}">
           <div class="clearfix">
             <div class="float-left">
               <strong>{{item.memory|intNotNull}} KB</strong>
             </div>
-            <div class="float-right">
+            <div v-if="success(item.result)" class="float-right">
               <small class="text-muted">상위 0 %</small>
             </div>
           </div>
           <CProgress
             class="progress-xs"
+            v-if="success(item.result)"
             v-model="item.memory.value"
             :color="color(item.memory.value)"
           />
@@ -264,6 +270,9 @@ export default {
           console.log(error);
         });
     },
+    success(result){
+      return result === "result-ac"
+    },
     //성공 실패 badge 추가!!!!
     getBadge(result) {
       //맞았습니다 : Success
@@ -321,9 +330,8 @@ export default {
 
     // 시간 메모리 없을때 - Null
     intNotNull: function(val) {
-      if (val === "0" || val === "") return 0;
       //콤마추가
-      else return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return val ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0";
     }
   }
 };
