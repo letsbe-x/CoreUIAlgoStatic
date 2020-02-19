@@ -76,7 +76,7 @@ import moment from "moment";
 import "moment/min/locales";
 moment.locale("ko");
 import axios from "axios";
-const _SERVER = "http://13.125.147.223:8080/";
+const _SERVER = "http://13.125.147.223:8080";
 import levelToTier from "../../filters/levelToTier.js";
 import levelToTierImage from "../../filters/levelToTierImage.js";
 import resultToText from "../../filters/resultToText.js";
@@ -195,7 +195,7 @@ export default {
     },
 
     test: function(e) {
-      console.log(e);
+      // console.log(e);
     },
 
     loader: function() {
@@ -276,7 +276,7 @@ export default {
       //런타임에러 :Warning
       //result-rte
       //등등
-      console.log(result);
+      // console.log(result);
       switch (result) {
         case "result-ac":
           return "success";
