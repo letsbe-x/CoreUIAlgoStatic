@@ -60,15 +60,15 @@ function configRoutes() {
       path: "/:user_id",
       redirect: "/:user_id/dashboard",
       name: "Home",
-      beforeEnter: function(to, from, next) {
-        // 인증 값 검증 로직 추가
-        let user_id = to.params.user_id;
-        let flag = axios
-          .get(`${_SERVER}/isUser/${user_id}`)
-          .then(res => res.data);
-        if (flag) next("/");
-        else next();
-      },
+      // beforeEnter: function(to, from, next) {
+      //   // 인증 값 검증 로직 추가
+      //   let user_id = to.params.user_id;
+      //   let flag = axios
+      //     .get(`${_SERVER}/isUser/${user_id}`)
+      //     .then(res => res.data);
+      //   if (flag) next();
+      //   else next("/");
+      // },
       component: TheContainer,
       children: [
         {

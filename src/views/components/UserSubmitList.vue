@@ -50,7 +50,12 @@
               <small class="text-muted">상위 0 %</small>
             </div>
           </div>
-          <CProgress class="progress-xs" v-if="success(item.result)" v-model="item.time.value" :color="color(item.time.value)" />
+          <CProgress
+            class="progress-xs"
+            v-if="success(item.result)"
+            v-model="item.time.value"
+            :color="color(item.time.value)"
+          />
         </td>
         <td slot="memory" slot-scope="{item}">
           <div class="clearfix">
@@ -74,6 +79,23 @@
         </td>
       </CDataTable>
     </CCardBody>
+    <CCardFooter>
+      <!-- pagenation -->
+      <v-btn
+        :style="{
+          width: '97%',
+          display: 'inline-block'
+        }"
+        :loading="loading"
+        :disabled="loading"
+        color="white"
+        class="ma-2 grey--text"
+        @click="loader"
+      >
+        {{load_btn_label}}
+        <v-icon right dark>mdi-download</v-icon>
+      </v-btn>
+    </CCardFooter>
   </CCard>
 </template>
 
@@ -270,8 +292,8 @@ export default {
           console.log(error);
         });
     },
-    success(result){
-      return result === "result-ac"
+    success(result) {
+      return result === "result-ac";
     },
     //성공 실패 badge 추가!!!!
     getBadge(result) {
