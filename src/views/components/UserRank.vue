@@ -7,7 +7,7 @@
             color="twitter"
             :right-header="user_id"
             right-footer="BOJ"
-            :left-header="user_info.level"
+            :left-header="user_info.level|levelToTier"
             left-footer="Rank"
           >
             <h1 class="display-1" style="height:100px; line-height: 100px;">BaekJoon</h1>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import levelToTier from '@/filters/levelToTier.js'
 import axios from "axios";
 export default {
   props: {
@@ -62,12 +63,14 @@ export default {
         this.user_info = res.data.data;
         return res.data.dta;
       });
+  },
+  filters:{
+    levelToTier
   }
   // asyncData() {
   // return axios
   //   .get(`http://13.125.147.223:8080/user/${user_id}`)
   //   .then(res => {
-  //     console.log("sadfasdfsa")
   //     return { user_info: res.data.data };
   //   });
   // }

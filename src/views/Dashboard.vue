@@ -1,9 +1,9 @@
 <template>
   <div>
-    <UserRank :user_id="id"/>
-    <UserInfo :user_id="id"/>
-    <UserDailyCalendar :user_id="id"/>
-    <UserSubmitList :user_id="id"/>
+    <UserRank :user_id="user_id"/>
+    <UserInfo :user_id="user_id"/>
+    <UserDailyCalendar :user_id="user_id"/>
+    <UserSubmitList :user_id="user_id"/>
   </div>
 </template>
 
@@ -16,9 +16,10 @@ import UserSubmitList from "./components/UserSubmitList";
 export default {
   name: "Dashboard",
   props: {
-    id: {
+    user_id: {
       type: String,
-      default: '-'
+      default: '-',
+      required : true
     }
   },
   components: {
@@ -26,6 +27,7 @@ export default {
     UserInfo,
     UserDailyCalendar,
     UserSubmitList
+
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <CRow>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="info" :header="user_info.boj_submission_count" text="제출수">
+      <CWidgetDropdown color="info" :header="user_info.boj_submission_count.toString()" text="제출수">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -10,14 +10,12 @@
             style="height:70px"
             :data-points="[65, 59, 84, 84, 51, 55, 40]"
             point-hover-background-color="info"
-            label="Members"
-            labels="months"
           />
         </template>
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="danger" :header="user_info.solved" text="도전한 문제">
+      <CWidgetDropdown color="danger" :header="user_info.solved.toString()" text="도전한 문제">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -25,7 +23,9 @@
             style="height:70px"
             background-color="rgba(255,255,255,.2)"
             :data-points="[78, 81, 80, 45, 34, 12, 40]"
-            :options="{ elements: { line: { borderWidth: 2.5 }}}"
+            :options="{ legend: {
+        display: false
+    },elements: { line: { borderWidth: 2.5 }}}"
             point-hover-background-color="warning"
             label="Members"
             labels="months"
@@ -34,7 +34,7 @@
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="info" :header="user_info.boj_solved_count" text="맞은문제">
+      <CWidgetDropdown color="info" :header="user_info.boj_solved_count.toString()" text="맞은문제">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -51,9 +51,12 @@
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="warning" header="100%" text="성공율">
-        <template #default>
-        </template>
+      <CWidgetDropdown
+        color="warning"
+        :header="user_info.boj_solved_count | sucessRate(user_info.solved)"
+        text="성공율"
+      >
+        <template #default></template>
         <template #footer>
           <CChartBarSimple
             class="mt-3 mx-3"
@@ -71,6 +74,10 @@
 <script>
 import { CChartLineSimple, CChartBarSimple } from "../charts/index.js";
 import axios from "axios";
+import sucessRate from "@/filters/sucessRate";
+import intNotNull from "@/filters/int_notNull";
+const _SERVER = "http://13.125.147.223:8080";
+
 export default {
   props: {
     user_id: {
@@ -90,14 +97,28 @@ export default {
       }
     };
   },
+  methods: {
+    getRandomInt() {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    }
+  },
 
   mounted() {
     return axios
-      .get(`http://13.125.147.223:8080/user/${this.user_id}`)
+      .get(`${_SERVER}/user/${this.user_id}`)
       .then(res => {
         this.user_info = res.data.data;
-        return res.data.dta;
+
+        // @TODO  : 임시방편 null처리  / String 처리
+        return res.data.data;
+      })
+      .catch(() => {
+        console.warn("Solved.AC NOT FOUND");
       });
+  },
+  filters: {
+    sucessRate,
+    intNotNull
   }
 };
 </script>
