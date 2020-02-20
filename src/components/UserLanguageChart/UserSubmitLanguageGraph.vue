@@ -2,6 +2,9 @@
   <CRow>
     <CCol md="12">
       <CCard>
+        <CCardHeader class="card-title header_card">
+          <h4>문제 해결에 사용된 주력 언어</h4>
+        </CCardHeader>
         <CCardBody>
           <GChart
             :settings="{packages: ['bar']}"
@@ -14,7 +17,7 @@
         <CCardFooter>
           <!-- 상위 5개 푸터 -->
           <!--@TODO : map/key를 통해서 맞춰 뽑기 -->
-          <CRow class="text-center">
+          <!-- <CRow class="text-center">
             <CCol md sm="12" class="mb-sm-2 mb-0">
               <div class="text-muted">{{chartData[1][0]}}</div>
               <strong>{{chartData[1][1]}}</strong>
@@ -30,7 +33,7 @@
               <strong>{{chartData[3][1]}}</strong>
               <CProgress class="progress-xs mt-2" :precision="1" color="warning" :value="30" />
             </CCol>
-            <!-- <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
+            <CCol md sm="12" class="mb-sm-2 mb-0 d-md-down-none">
               <div class="text-muted">{{chartData[4][0]}}</div>
               <strong>{{chartData[4][1]}}</strong>
               <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="20" />
@@ -39,8 +42,8 @@
               <div class="text-muted">{{chartData[5][0]}}</div>
               <strong>{{chartData[5][1]}}</strong>
               <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="10" />
-            </CCol> -->
-          </CRow>
+            </CCol>
+          </CRow> -->
         </CCardFooter>
       </CCard>
     </CCol>
@@ -63,7 +66,7 @@ export default {
     }
   },
   components: {
-    GChart,
+    GChart
   },
 
   mounted() {
@@ -93,7 +96,7 @@ export default {
         bars: "horizontal", // Required for Material Bar Charts.
         hAxis: { format: "decimal" },
         height: 200,
-        colors: ["#d95f02", "#1b9e77", "#7570b3","#d95f02", "#1b9e77"],
+        colors: ["#d95f02", "#1b9e77", "#7570b3", "#d95f02", "#1b9e77"],
         maintainAspectRatio: false
       });
     }

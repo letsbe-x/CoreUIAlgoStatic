@@ -1,13 +1,34 @@
 <template>
   <div>
     <CRow>
-      <CCol sm="6">
-        <CCard bodyWrapper>
-          <span style="font-weight: bold; font-size : x-large;">{{id}}</span> 님의 맞은 문제의 수는
-          <span style="font-weight: bold; font-size : large;">{{collectPcnt}}</span>개이며, 시도했지만 풀지 못한 문제의 수는
-          <span style="font-weight: bold; font-size : large;">{{xPcnt}}</span>개입니다. 시도했지만 풀지 못한 문제의 유형으로는
-          <span style="font-weight: bold;">{{algo}}</span> 순으로 많으며 그 외 틀린 유형으로는
-          <span style="font-weight: bold; font-size : large;">{{resultType}}</span>가 많습니다.
+      <CCol sm="12" md="12">
+        <CCard accent-color="danger">
+          <CCardHeader class="card-title header_card">
+            <h4>가장 많이 실수하는 알고리즘 유형</h4>
+          </CCardHeader>
+          <CCardBody class="text-body">
+            <span
+              style="padding-top: 0.5rem !important; ont-weight: bold; font-size : x-large;"
+            >{{id}}</span> 님의 맞은 문제의 수는
+            <span
+              style="padding-top: 0.5rem !important; font-weight: bold; font-size : large; color: blue !important;"
+            >{{collectPcnt}}</span>개이며,
+            <br />
+            <strong>시도했지만 풀지 못한 문제의 수</strong>는
+            <span
+              style="padding-top: 0.5rem !important; font-weight: bold; font-size : large; color: #e91e63 !important;"
+            >{{xPcnt}}</span>개입니다.
+            <br />
+            <strong>시도했지만 풀지 못한 문제의 유형</strong>으로는
+            <br />
+            <span
+              style="padding-top: 0.5rem !important; font-weight: bold; font-size : large; color: #e91e63 !important;"
+            >{{algo}}</span> 순으로 많으며,
+            <br />그 외 틀린 유형으로는
+            <span
+              style="padding-top: 0.5rem !important; font-weight: bold; font-size : large; color: #e91e63 !important;"
+            >{{resultType}}</span>가 많습니다.
+          </CCardBody>
         </CCard>
       </CCol>
     </CRow>
@@ -81,3 +102,21 @@ export default {
   }
 };
 </script>
+<style scoped>
+.text-body {
+  height: 200px;
+  /* background-color: rgba(0, 0, 0, 0.85); */
+  padding: 30px;
+  color: #f0f0f0;
+  font-size: 1.45em;
+  line-height: 1.4em;
+  font-weight: 500;
+  text-align: left;
+  overflow: hidden;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+</style>
