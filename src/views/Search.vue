@@ -2,16 +2,21 @@
   <v-card color="blue">
     <div class="page">
       <div class="page__demo">
-      <div style="text-align:center;">
-         <img src="img/logo_transparent.png" style="max-width:100%; height:auto; width:50%;"/>
-      </div>
-
-      <div style="color:white; min-height:5vh; display:flex; align-items:center; justify-content:center;">
-          <vue-typed-js :strings="['awesome', 'nice', 'brilliant']" :loop="true">
-          <h2>Algoria is a <span class="typing"></span> Service!</h2>
+        <div style="text-align:center;">
+          <img src="img/logo_transparent.png" style="max-width:100%; height:auto; width:50%;" />
+        </div>
+        <div
+          style="color:white; min-height:5vh; display:flex; align-items:center; justify-content:center;"
+        >
+          <vue-typed-js :strings="['Statistics', 'Feedback', 'Recommendation']" :loop="true">
+            <h2>
+              {{msg}}Algoria is
+              <span class="typing"></span>
+              Service!
+            </h2>
           </vue-typed-js>
-      </div>
-      <br/>
+        </div>
+        <br />
 
         <form class="search">
           <div class="a-field search__field">
@@ -61,6 +66,12 @@
 
 <script>
 export default {
+  props: {
+    msg: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
       searchQuery: ""
