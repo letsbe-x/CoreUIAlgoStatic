@@ -2,55 +2,33 @@
   <CHeader fixed with-subheader light>
     <CToggler in-header class="ml-3 d-lg-none" v-c-emit-root-event:toggle-sidebar-mobile />
     <CToggler in-header class="ml-3 d-md-down-none" v-c-emit-root-event:toggle-sidebar />
-    <!-- <CHeaderBrand
-      class="mx-auto d-lg-none" 
-      src="img/brand/coreui-vue-logo.svg"
-      width="190"
-      height="46"
-      alt="CoreUI Logo"
-    />-->
     <CHeaderNav class="d-md-down-none mr-auto">
       <CHeaderNavItem class="px-3">
-        <CHeaderNavLink to="/dashboard" exact>Dashboard</CHeaderNavLink>
+        <CHeaderNavLink to="dashboard" exact>Dashboard</CHeaderNavLink>
       </CHeaderNavItem>
       <CHeaderNavItem class="px-3">
-        <CHeaderNavLink to="/dashboard" exact>Users</CHeaderNavLink>
+        <CHeaderNavLink to="feedback" exact>Feedback</CHeaderNavLink>
       </CHeaderNavItem>
       <CHeaderNavItem class="px-3">
-        <CHeaderNavLink>Recommand</CHeaderNavLink>
+        <CHeaderNavLink to="recommend" exact>Recommend</CHeaderNavLink>
       </CHeaderNavItem>
-    </CHeaderNav>
-    <CHeaderNav class="mr-4">
-      <!-- <v-flex align-self-center> -->
-      <v-text-field
-        :append-icon-cb="() => {}"
-        placeholder="keydown '/' Focus"
-        single-line
-        append-icon="search"
-        color="white"
-        hide-details
-        style="width:200px"
-      ></v-text-field>
-      <!-- </v-flex> -->
     </CHeaderNav>
     <!-- <CHeaderNav class="mr-4">
-      <CHeaderNavItem class="d-md-down-none mx-2">
+      <CHeaderNavItem class="mr-4">
         <CHeaderNavLink>
-          <CIcon name="cil-bell"/>
+          <v-text-field
+            :append-icon-cb="() => {}"
+            placeholder=" search..."
+            single-line
+            color="white"
+            hide-details
+            v-model="searchQuery"
+            @keyup.enter="submit()"
+            style="width:200px"
+          ></v-text-field>
         </CHeaderNavLink>
       </CHeaderNavItem>
-      <CHeaderNavItem class="d-md-down-none mx-2">
-        <CHeaderNavLink>
-          <CIcon name="cil-list"/>
-        </CHeaderNavLink>
-      </CHeaderNavItem>
-      <CHeaderNavItem class="d-md-down-none mx-2">
-        <CHeaderNavLink>
-          <CIcon name="cil-envelope-open"/>
-        </CHeaderNavLink>
-      </CHeaderNavItem>
-      <TheHeaderDropdownAccnt/>
-    </CHeaderNav>-->
+    </CHeaderNav> -->
     <CSubheader class="px-3">
       <CBreadcrumbRouter class="border-0" />
     </CSubheader>
@@ -64,6 +42,20 @@ export default {
   name: "TheHeader",
   components: {
     TheHeaderDropdownAccnt
+  },
+  data() {
+    return {
+      // searchQuery: ""
+    };
+  },
+  methods:{
+    // submit() {
+    //   //대문자 -> 소문자
+    //   this.$router.push("/" + this.searchQuery.toLowerCase());
+    // }
   }
 };
 </script>
+
+<style>
+</style>
