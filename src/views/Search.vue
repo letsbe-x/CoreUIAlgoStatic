@@ -62,7 +62,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .slide-enter-active {
   -moz-transition-duration: 0.5s;
   -webkit-transition-duration: 0.5s;
