@@ -46,13 +46,13 @@
             <div class="float-left">
               <strong>{{item.time|intNotNull}} ms</strong>
             </div>
-            <div v-if="success(item.result)" class="float-right">
+            <div v-if="item.isresultAccept" class="float-right">
               <small class="text-muted">{{item.timeRank|toPercent}}</small>
             </div>
           </div>
           <CProgress
             class="progress-xs"
-            v-if="success(item.result)"
+            v-if="item.isresultAccept"
             v-model="item.timeRank"
             :color="color(item.timeRank)"
           />
@@ -62,13 +62,13 @@
             <div class="float-left">
               <strong>{{item.memory|intNotNull}} KB</strong>
             </div>
-            <div v-if="success(item.result)" class="float-right">
+            <div v-if="item.isresultAccept" class="float-right">
               <small class="text-muted">{{item.memoryRank|toPercent}}</small>
             </div>
           </div>
           <CProgress
             class="progress-xs"
-            v-if="success(item.result)"
+            v-if="item.isresultAccept"
             v-model="item.memoryRank"
             :color="color(item.memoryRank)"
           />
@@ -116,43 +116,64 @@ export default {
       type: String,
       default: "-"
     },
-    dailyData:{
+    dailyData: {
       type: Array
     }
   },
-  watch: { 
-
-    dailyData:{
-        handler(){
-         this.tableItems=this.dailyData;
+  watch: {
+    dailyData: {
+      handler() {
+        // console.log("click >> " + this.dailyData);
+        let tempItems = [...this.dailyData];
+        // this.tableItems = this.dailyData;
         var now = Date.now(0);
 
-   
-        this.tableItems.forEach(element => {
+        // this.tableItems.forEach(element => {
+        tempItems.forEach(element => {
           element.rankimg =
             "https://solved.ac/res/tier-small/" + element.level + ".svg";
+          element.timeRank = 0;
+          element.memoryRank = 0;
+          if (element.result == "result-ac") {
+            element.isresultAccept = true;
+            axios
+              .get(
+                `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/time/`
+              )
+              .then(res => {
+                element.timeRank = (1 - res.data.rank) * 100;
+              })
+              .catch(err => console.log(err));
+            axios
+              .get(
+                `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/memory/`
+              )
+              .then(res => {
+                element.memoryRank = (1 - res.data.rank) * 100;
+              })
+              .catch(err => console.log(err));
+          }
           if (element.result == "result-ac") {
             element.isresultAccept = true;
           }
           //let d= moment(element.date+'000',"x").fromNow();
-          console.log('ts:',element.date);
+          // console.log("ts:", element.date);
           let d = moment(new Date(parseInt(element.date) * 1000)).fromNow();
           element.from_now = d;
           element.date = moment(new Date(parseInt(element.date) * 1000)).format(
             "YYYY-MM-DD HH:mm:ss"
           );
         });
-
-     
-        }
-
+        // this.$set(this.tableItems,tempItems)
+        this.tableItems = tempItems;
+        console.log(this.tableItems)
+      }
     }
-   
   },
   data() {
     return {
       //구려;;;
-      test: 50.100,
+      test: 50.1,
       testItems: [
         {
           rankimg: "",
@@ -216,9 +237,9 @@ export default {
   },
 
   mounted() {
-    if(this.dailyData!=null){
-      this.dailyData=[];
-    }
+    // if (this.dailyData != null) {
+    //   this.dailyData = [];
+    // }
     this.tableItems = [];
     this.search();
     this.getPaginationInfo().then(response => {
@@ -268,10 +289,6 @@ export default {
         });
     },
 
-    test: function(e) {
-      // console.log(e);
-    },
-
     loader: function() {
       this.loading = true;
       if (this.pagination.last_page_num == this.pageno) {
@@ -287,7 +304,7 @@ export default {
 
     search: function(mode) {
       if (mode == "search") this.tableItems = [];
-      
+
       var now = Date.now(0);
 
       this.getRecentSubmitRecord().then(response => {
@@ -306,7 +323,7 @@ export default {
                 `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/time/`
               )
               .then(res => {
-                element.timeRank = (1-res.data.rank)*100;
+                element.timeRank = (1 - res.data.rank) * 100;
               })
               .catch(err => console.log(err));
             axios
@@ -314,7 +331,7 @@ export default {
                 `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/memory/`
               )
               .then(res => {
-                element.memoryRank = (1-res.data.rank)*100;
+                element.memoryRank = (1 - res.data.rank) * 100;
               })
               .catch(err => console.log(err));
           }
@@ -394,7 +411,7 @@ export default {
         data >= 50
           ? "상위 " + (100 - data).toFixed(2) + "%"
           : "하위 " + data.toFixed(2) + "%";
-      console.log(result);
+      // console.log(result);
       return result;
     },
     //테이블 컬러 선택
@@ -410,7 +427,7 @@ export default {
       //런타임에러 :Warning
       //result-rte
       //등등
-      console.log(result);
+      // console.log(result);
       switch (result) {
         case "result-ac":
           return "table-success";

@@ -9,7 +9,7 @@
       height="46"
       alt="CoreUI Logo"
     />-->
-    <CHeaderNav class="d-md-down-none mr-auto">
+    <!-- <CHeaderNav class="d-md-down-none mr-auto">
       <CHeaderNavItem class="px-3">
         <CHeaderNavLink to="/dashboard" exact>Dashboard</CHeaderNavLink>
       </CHeaderNavItem>
@@ -19,19 +19,25 @@
       <CHeaderNavItem class="px-3">
         <CHeaderNavLink>Recommand</CHeaderNavLink>
       </CHeaderNavItem>
-    </CHeaderNav>
+    </CHeaderNav>-->
     <CHeaderNav class="mr-4">
-      <!-- <v-flex align-self-center> -->
-      <v-text-field
-        :append-icon-cb="() => {}"
-        placeholder="keydown '/' Focus"
-        single-line
-        append-icon="search"
-        color="white"
-        hide-details
-        style="width:200px"
-      ></v-text-field>
-      <!-- </v-flex> -->
+      <!-- <v-flex align-self-center>
+        <v-text-field
+          :append-icon-cb="() => {}"
+          placeholder="keydown '/' Focus"
+          single-line
+          append-icon="search"
+          color="white"
+          hide-details
+          style="width:200px"
+        ></v-text-field>
+      </v-flex>-->
+      <div id="search">
+        <i class="fas fa-search" id="search-icon"></i>
+        <form>
+          <input type="text" id="search-input" name="search" autocomplete="off" />
+        </form>
+      </div>
     </CHeaderNav>
     <!-- <CHeaderNav class="mr-4">
       <CHeaderNavItem class="d-md-down-none mx-2">
@@ -67,3 +73,40 @@ export default {
   }
 };
 </script>
+
+<style>
+#search {
+  height: 80px;
+  width: 80px;
+  border-bottom: solid 5px transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  transition: 0.3s;
+}
+
+#search-input {
+  height: 100%;
+  width: 0px;
+  font-size: 28px;
+  font-weight: 600;
+  background: none;
+  color: #fff;
+  border: none;
+  outline: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+#search.active {
+  width: 350px;
+  border-bottom: 5px solid white;
+}
+
+#search-input.active {
+  width: 260px;
+  margin-left: 16px;
+  visibility: visible;
+}
+</style>
