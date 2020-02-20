@@ -39,14 +39,14 @@ export default new Router({
   // mode: "history",
   linkActiveClass: "active",
   scrollBehavior: () => ({ y: 0 }),
-  routes: configRoutes(),
-  beforeEnter: function(to, from, next) {
-    // 인증 값 검증 로직 추가
-    console.warn(to);
-    console.warn(from);
-    console.warn(next);
-    next("/");
-  }
+  routes: configRoutes()
+  // beforeEnter: function(to, from, next) {
+  //   // 인증 값 검증 로직 추가
+  //   console.warn(to);
+  //   console.warn(from);
+  //   console.warn(next);
+  //   next("/");
+  // }
 });
 
 function configRoutes() {
@@ -60,15 +60,18 @@ function configRoutes() {
       path: "/:user_id",
       redirect: "/:user_id/dashboard",
       name: "Home",
-      // beforeEnter: function(to, from, next) {
-      //   // 인증 값 검증 로직 추가
-      //   let user_id = to.params.user_id;
-      //   let flag = axios
-      //     .get(`${_SERVER}/isUser/${user_id}`)
-      //     .then(res => res.data);
-      //   if (flag) next();
-      //   else next("/");
-      // },
+      beforeEnter: function(to, from, next) {
+        // 인증 값 검증 로직 추가
+        let user_id = to.params.user_id;
+        axios.get(`${_SERVER}/isUser/${user_id}`).then(res => {
+          let flag = res.data;
+          if (flag) next();
+          else {
+            console.log("not Allows User")
+            // next('/')
+          }
+        });
+      },
       component: TheContainer,
       children: [
         {
