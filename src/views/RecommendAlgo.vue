@@ -69,7 +69,7 @@
 
                     <v-card-text class="text-primary">
                       <div>맞은사람 : {{item.n_success}}</div>
-                      <div>정답비율: {{ item.successRate | percentage }}%</div>
+                      <div>정답비율: {{ item.n_success_rate }}%</div>
                     </v-card-text>
 
                     <v-card-actions>
