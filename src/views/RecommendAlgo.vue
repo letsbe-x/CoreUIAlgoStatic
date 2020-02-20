@@ -54,7 +54,7 @@
                   :key="index"
                 >
                   <v-card height="100%">
-                    <v-card-title class="font-weight-bold problem-title">
+                    <v-card-title class="font-weight-bold">
                       <div>
                         <v-img
                           width="20"
@@ -224,20 +224,3 @@ export default {
   }
 };
 </script>
-
-<style scope>
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-.problem-title {
-  /* 한 줄 자르기 */
-  display: inline-block;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* 여러 줄 자르기 추가 스타일 */
-  white-space: normal;
-}
-
-p {
-  font-family: "Nanum Gothic";
-}
-</style>

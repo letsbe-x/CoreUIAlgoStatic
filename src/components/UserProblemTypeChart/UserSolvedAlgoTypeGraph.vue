@@ -141,9 +141,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .small {
-  max-width: 600px;
-  margin: auto;
+  max-width: 300px;
 }
 </style>
