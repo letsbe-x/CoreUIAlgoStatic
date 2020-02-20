@@ -2,6 +2,18 @@
   <v-card color="blue">
     <div class="page">
       <div class="page__demo">
+    
+      <div style="text-align:center;">
+         <img src="img/logo_transparent.png" style="max-width:100%; height:auto; width:50%;"/>
+      </div>
+
+      <div style="color:white; min-height:10vh; display:flex; align-items:center; justify-content:center;">
+          <vue-typed-js :strings="['awesome', 'brilliant']" :loop="true">
+          <h2>Algoria is a <span class="typing"></span> company!</h2>
+          </vue-typed-js>      
+      </div>
+      <br/>
+
         <form class="search">
           <div class="a-field search__field">
             <input
@@ -45,6 +57,8 @@
     </div>
   </v-card>
 </template>
+
+
 
 <script>
 export default {
