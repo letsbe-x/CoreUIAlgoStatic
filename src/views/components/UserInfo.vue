@@ -15,7 +15,7 @@
       </CWidgetDropdown>
     </CCol>
     <CCol sm="6" lg="3">
-      <CWidgetDropdown color="danger" :header="user_info.solved.toString()" text="도전한 문제">
+      <CWidgetDropdown color="danger" :header="user_info.tried.toString()" text="도전한 문제">
         <template #default></template>
         <template #footer>
           <CChartLineSimple
@@ -52,8 +52,8 @@
     </CCol>
     <CCol sm="6" lg="3">
       <CWidgetDropdown
-        color="warning"
-        :header="user_info.boj_solved_count | sucessRate(user_info.solved)"
+        color="warning" 
+        :header="user_info.solved | sucessRate(user_info.boj_submission_count)"
         text="성공율"
       >
         <template #default></template>
@@ -77,6 +77,7 @@ import axios from "axios";
 import sucessRate from "@/filters/sucessRate";
 import intNotNull from "@/filters/int_notNull";
 const _SERVER = "http://13.125.147.223:8080";
+//const _SERVER = "http://localhost:8080";
 
 export default {
   props: {
@@ -105,12 +106,49 @@ export default {
 
   mounted() {
     return axios
-      .get(`${_SERVER}/user/${this.user_id}`)
+      .get(`${_SERVER}/user/${this.user_id}/GeneralComment`)
       .then(res => {
-        this.user_info = res.data.data;
+        res= res.data;
+      
+        //유저 제출기록 통계 array
+        let userSubmitInfo =res.UserSubmitInfo;
+
+       
+
+        //유저가 못푼 문제들 array
+        let xproblems= res.Xproblems;
+        //성공한 제출횟수(맞았습니다 받은 기록)
+        let acceptedSumitCnt=userSubmitInfo[0].count;
+
+        console.log("accepted cnt", acceptedSumitCnt);
+
+       
+        //총 시도 회수를 구하기 위해 배열 순회
+        let totaclSubmitCnt=0;
+        let totalTriedProblemNum= 0;
+        //도전한 문제수
+        totalTriedProblemNum+=userSubmitInfo[0].problems.length+xproblems.length;
+     
+        userSubmitInfo.forEach(result => {
+          totaclSubmitCnt+= result.count;
+         
+        });
+
+        this.user_info =  {
+        user_id: this.user_id,
+        solved: acceptedSumitCnt,
+        tried: totalTriedProblemNum,
+        boj_submission_count: totaclSubmitCnt,
+        boj_solved_count: userSubmitInfo[0].problems.length 
+      }
+
+        console.log("try cnt", totaclSubmitCnt);
+       
+   
+
 
         // @TODO  : 임시방편 null처리  / String 처리
-        return res.data.data;
+        return res;
       })
       .catch(() => {
         console.warn("Solved.AC NOT FOUND");
