@@ -7,17 +7,14 @@
           <CRow>
             <CCol sm="5">
               <h4 id="traffic" class="card-title mb-0">DailyChart</h4>
-              <div class="small text-muted">November 2017 ~ November 2017</div>
+              <div class="small text-muted">{{startDate|getFormatDate}} ~ {{endDate|getFormatDate}}</div>
             </CCol>
           </CRow>
-          <!--<CCard class="text-center" style="height:300px;margin-top:50px">
-            <div style="text-align:center;"  id="domainDynamicDimension-a"></div>
-          -->
           <v-bottom-sheet v-model="sheet" inset scrollable>
             <v-sheet class="text-center">
               <v-btn class="mt-6" text color="error" @click="sheet = !sheet">close</v-btn>
 
-              <v-card style="height: 500px;" class="my-3">
+              <v-card style="height: 500px;" class="my-3 scroll">
                 <UserSubmitList :dailyData="clicked_day_data"></UserSubmitList>
               </v-card>
             </v-sheet>
@@ -57,10 +54,10 @@
 
 <script>
 import CalHeatMap from "cal-heatmap";
-import { mapState } from "vuex";
 import UserSubmitList from "@/views/components/UserSubmitList.vue";
 
 const axios = require("axios");
+const _SERVER = "http://13.125.147.223:8080";
 
 export default {
   components: {
@@ -68,11 +65,17 @@ export default {
     // "submit-graph": submitGraph,
     // "recode-list": recordList
   },
+  props: {
+    user_id: {
+      type: String,
+      default: "-",
+      required: true
+    }
+  },
   name: "user-calendar",
   data() {
     return {
       clicked_day_data: [],
-      user_id: "sdm821",
       sheet: false,
       dialog: false,
       cal: null,
@@ -82,12 +85,7 @@ export default {
       submit_history: null,
       dateData: {},
 
-      submit_data: [],
-      chartData: {
-        success: 1,
-        fail: 1,
-        total: 2
-      }
+      submit_data: []
     };
   },
   filters: {
@@ -120,7 +118,8 @@ export default {
     print() {
       var $self = this;
       let url =
-        "http://localhost:8080/stastic/dailysubmit/v2/" +
+        _SERVER +
+        "/stastic/dailysubmit/v2/" +
         this.user_id +
         "/" +
         this.startDate.getTime() +
@@ -156,30 +155,29 @@ export default {
             displayLegend: false,
             onClick: function(date, nb) {
               // console.log($self.submit_history);
-              console.log(date);
+              // console.log(date);
               $self.sheet = true;
               var submit_history = $self.submit_history;
-              console.log("클릭:", submit_history);
+              // console.log("클릭:", submit_history);
 
-              let day_submit_history=[];
+              let day_submit_history = [];
               try {
-                day_submit_history =submit_history[date.getTime() / 1000 + 32400]["submit_history"];
+                day_submit_history =
+                  submit_history[date.getTime() / 1000 + 32400][
+                    "submit_history"
+                  ];
               } catch (error) {
-                day_submit_history=[];
+                day_submit_history = [];
               }
 
               var res;
-              $self
-                .getSubmissionInfoArr(
-                  day_submit_history
-                )
-                .then(data => {
-                  res = data;
-                  console.log("제출기록", res);
-                  //console.log(typeof res);
+              $self.getSubmissionInfoArr(day_submit_history).then(data => {
+                res = data;
+                console.log("제출기록", res);
+                //console.log(typeof res);
 
-                  $self.clicked_day_data = res;
-                });
+                $self.clicked_day_data = res;
+              });
             }
           });
           cal.paint();
@@ -196,7 +194,7 @@ export default {
       //submission_history  : 숫자 배열
       // console.log(submission_history);
 
-      let url = "http://localhost:8080/find/submssion/list/";
+      let url = `${_SERVER}/find/submssion/list/`;
       return axios
         .post(url, submission_history)
         .then(response => {
@@ -212,4 +210,7 @@ export default {
 
 <style scoped>
 @import "http://cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css";
+.scroll {
+  overflow-y: auto;
+}
 </style>
