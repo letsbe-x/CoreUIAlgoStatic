@@ -5,6 +5,7 @@
         <div class="flex display-1 font-weight-bold">알고리즘 문제 추천!</div>
       </CCardHeader>
       <CCardBody>
+        <!-- {{user_id}} -->
         <blockquote class="blockquote">
           <p>검색하고자 하는 알고리즘을 풀었던 실력을 기반으로 알고리즘 문제를 추천해줍니다.</p>
           <p>알고리즘 실력 측정 기준 : 이미 풀었던 문제들의 평균 난이도(랭크)과 비슷하거나 그 이상의 문제를 추천</p>
@@ -81,7 +82,7 @@
                       {{item.problem_title}}
                     </v-card-title>
 
-                    <v-card-text class="text-primary"  >
+                    <v-card-text class="text-primary">
                       <div>맞은사람 : {{item.n_success}}</div>
                       <div>정답비율: {{ item.successRate | percentage }}%</div>
                     </v-card-text>
@@ -106,18 +107,25 @@
   </div>
 </template>
 <script>
+const _SERVER = "http://13.125.147.223:8080";
 const axios = require("axios");
 export default {
   name: "RecommendAlgo",
+  props: {
+    user_id: {
+      type: String,
+      default: '-',
+      required : true
+    }
+  },
   data: () => ({
     items: [],
     searchInput: "",
     value: [],
-    user_id: "gudrhks2"
   }),
   mounted() {
     this.getEntireAlgorithmTagInfo().then(response => {
-      console.log(response);
+      // console.log("mounted :: "+response);
       this.items = response;
     });
   },
@@ -137,7 +145,7 @@ export default {
   },
   methods: {
     remove(index) {
-      console.log(index);
+      // console.log(index);
       if (index >= 0) this.value.splice(index, 1);
     },
 
@@ -156,7 +164,7 @@ export default {
     },
 
     getEntireAlgorithmTagInfo: function() {
-      let url = "http://localhost:8080/recommend/algorithms/tags";
+      let url = `${_SERVER}/recommend/algorithms/tags`;
 
       return axios
         .get(url, {
@@ -164,12 +172,12 @@ export default {
             let percentCompleted = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
             );
-            console.log(progressEvent.lengthComputable);
-            console.log(percentCompleted);
+            // console.log(progressEvent.lengthComputable);
+            // console.log(percentCompleted);
           }
         })
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           return response.data;
         })
         .catch(function(error) {
@@ -179,7 +187,7 @@ export default {
 
     getRecommendProblemsByAlgoId: function(user_id, algorithm_id) {
       let url =
-        "http://localhost:8080/feedback/recommend/user/algorithm/" +
+        `${_SERVER}/feedback/recommend/user/algorithm/` +
         user_id +
         "/" +
         algorithm_id;
@@ -195,7 +203,7 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
+          console.log(" :: "+response.data);
           return response.data;
         })
         .catch(function(error) {
@@ -216,13 +224,12 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 .problem-title {
-
   /* 한 줄 자르기 */
   display: inline-block;
-  
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; /* 여러 줄 자르기 추가 스타일 */

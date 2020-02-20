@@ -1,13 +1,11 @@
 <template>
   <CSidebar fixed :minimize="minimize" :show.sync="show">
-    <!-- <CSidebarBrand
-      :imgFull="{ width: 118, height: 46, alt: 'Logo', src: 'img/brand/coreui-base-white.svg'}"
-      :imgMinimized="{ width: 118, height: 46, alt: 'Logo', src: 'img/brand/coreui-signet-white.svg'}"
-      :wrappedInLink="{ href: '/', target: '_blank'}"
-    />-->
-    <CSideBarBrand :wrappedInLink="{ href: '/', target: '_blank'}">
-      <!-- <h2>Algo.CC</h2> -->
-    </CSideBarBrand>
+    <CSidebarBrand
+      :imgFull="{ width: 180, height: 60, alt: 'Logo', src: 'img/Menu_800_400.png'}"
+      :imgMinimized="{ width: 180, height: 60, alt: 'Logo', src: 'img/Menu_800_400.png'}"
+      :wrappedInLink="{ href: '/'}"
+    ></CSidebarBrand>
+    <br />
     <CRenderFunction flat :content-to-render="nav" />
     <!-- <CSidebarMinimizer
       class="d-md-down-none"

@@ -20,7 +20,12 @@
             <!--hover-->
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <img :src="item.level|levelToTierImage" class="c-avatar-img" :title="item.level" v-on="on" />
+                <img
+                  :src="item.level|levelToTierImage"
+                  class="c-avatar-img"
+                  :title="item.level"
+                  v-on="on"
+                />
               </template>
               <span>{{item.level|levelToTier}}</span>
             </v-tooltip>
@@ -30,7 +35,7 @@
           <div>{{item.problem_title}}</div>
           <!--분류모음
            <div class="small text-muted" v-for(data in item.classification)>{{data.full_name_ko}}</div>
-           -->
+          -->
         </td>
         <td slot="language" slot-scope="{item}" class="text-center">
           <div>{{item.language}}</div>
@@ -41,25 +46,31 @@
             <div class="float-left">
               <strong>{{item.time|intNotNull}} ms</strong>
             </div>
-            <div class="float-right">
-              <small class="text-muted">상위 0 %</small>
+            <div v-if="success(item.result)" class="float-right">
+              <small class="text-muted">{{item.timeRank|toPercent}}</small>
             </div>
           </div>
-          <CProgress class="progress-xs" v-model="item.time.value" :color="color(item.time.value)" />
+          <CProgress
+            class="progress-xs"
+            v-if="success(item.result)"
+            v-model="item.timeRank"
+            :color="color(item.timeRank)"
+          />
         </td>
         <td slot="memory" slot-scope="{item}">
           <div class="clearfix">
             <div class="float-left">
               <strong>{{item.memory|intNotNull}} KB</strong>
             </div>
-            <div class="float-right">
-              <small class="text-muted">상위 0 %</small>
+            <div v-if="success(item.result)" class="float-right">
+              <small class="text-muted">{{item.memoryRank|toPercent}}</small>
             </div>
           </div>
           <CProgress
             class="progress-xs"
-            v-model="item.memory.value"
-            :color="color(item.memory.value)"
+            v-if="success(item.result)"
+            v-model="item.memoryRank"
+            :color="color(item.memoryRank)"
           />
         </td>
         <td slot="activity" slot-scope="{item}">
@@ -68,6 +79,23 @@
         </td>
       </CDataTable>
     </CCardBody>
+    <CCardFooter>
+      <!-- pagenation -->
+      <v-btn
+        :style="{
+          width: '97%',
+          display: 'inline-block'
+        }"
+        :loading="loading"
+        :disabled="loading"
+        color="white"
+        class="ma-2 grey--text"
+        @click="loader"
+      >
+        {{load_btn_label}}
+        <v-icon right dark>mdi-download</v-icon>
+      </v-btn>
+    </CCardFooter>
   </CCard>
 </template>
 
@@ -76,21 +104,55 @@ import moment from "moment";
 import "moment/min/locales";
 moment.locale("ko");
 import axios from "axios";
-const _SERVER = "http://13.125.147.223:8080/";
+
 import levelToTier from "../../filters/levelToTier.js";
 import levelToTierImage from "../../filters/levelToTierImage.js";
 import resultToText from "../../filters/resultToText.js";
 
+const _SERVER = "http://13.125.147.223:8080";
 export default {
   props: {
     user_id: {
       type: String,
       default: "-"
+    },
+    dailyData:{
+      type: Array
     }
+  },
+  watch: { 
+
+    dailyData:{
+        handler(){
+         this.tableItems=this.dailyData;
+        var now = Date.now(0);
+
+   
+        this.tableItems.forEach(element => {
+          element.rankimg =
+            "https://solved.ac/res/tier-small/" + element.level + ".svg";
+          if (element.result == "result-ac") {
+            element.isresultAccept = true;
+          }
+          //let d= moment(element.date+'000',"x").fromNow();
+          console.log('ts:',element.date);
+          let d = moment(new Date(parseInt(element.date) * 1000)).fromNow();
+          element.from_now = d;
+          element.date = moment(new Date(parseInt(element.date) * 1000)).format(
+            "YYYY-MM-DD HH:mm:ss"
+          );
+        });
+
+     
+        }
+
+    }
+   
   },
   data() {
     return {
       //구려;;;
+      test: 50.100,
       testItems: [
         {
           rankimg: "",
@@ -154,6 +216,9 @@ export default {
   },
 
   mounted() {
+    if(this.dailyData!=null){
+      this.dailyData=[];
+    }
     this.tableItems = [];
     this.search();
     this.getPaginationInfo().then(response => {
@@ -162,16 +227,25 @@ export default {
   },
 
   methods: {
+    calculator(submission_id, attr) {
+      let url = `${_SERVER}/stastic/user/submit/rank/${submission_id}/${attr}/`;
+      return axios
+        .get(url)
+        .then(res => {
+          return res.data.rank;
+        })
+        .catch(err => console.log(err));
+    },
     color(value) {
       let $color;
       if (value <= 25) {
-        $color = "info";
-      } else if (value > 25 && value <= 50) {
-        $color = "success";
-      } else if (value > 50 && value <= 75) {
-        $color = "warning";
-      } else if (value > 75 && value <= 100) {
         $color = "danger";
+      } else if (value > 25 && value <= 50) {
+        $color = "warning";
+      } else if (value > 50 && value <= 75) {
+        $color = "success";
+      } else if (value > 75 && value <= 100) {
+        $color = "info";
       }
       return $color;
     },
@@ -195,7 +269,7 @@ export default {
     },
 
     test: function(e) {
-      console.log(e);
+      // console.log(e);
     },
 
     loader: function() {
@@ -213,7 +287,7 @@ export default {
 
     search: function(mode) {
       if (mode == "search") this.tableItems = [];
-
+      
       var now = Date.now(0);
 
       this.getRecentSubmitRecord().then(response => {
@@ -223,9 +297,28 @@ export default {
         newRecordArr.forEach(element => {
           element.rankimg =
             "https://solved.ac/res/tier-small/" + element.level + ".svg";
+          element.timeRank = 0;
+          element.memoryRank = 0;
           if (element.result == "result-ac") {
             element.isresultAccept = true;
+            axios
+              .get(
+                `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/time/`
+              )
+              .then(res => {
+                element.timeRank = (1-res.data.rank)*100;
+              })
+              .catch(err => console.log(err));
+            axios
+              .get(
+                `${_SERVER}/stastic/user/submit/rank/${element.submission_id}/memory/`
+              )
+              .then(res => {
+                element.memoryRank = (1-res.data.rank)*100;
+              })
+              .catch(err => console.log(err));
           }
+
           //let d= moment(element.date+'000',"x").fromNow();
           let d = moment(new Date(parseInt(element.date) * 1000)).fromNow();
           element.from_now = d;
@@ -264,6 +357,9 @@ export default {
           console.log(error);
         });
     },
+    success(result) {
+      return result === "result-ac";
+    },
     //성공 실패 badge 추가!!!!
     getBadge(result) {
       //맞았습니다 : Success
@@ -276,7 +372,7 @@ export default {
       //런타임에러 :Warning
       //result-rte
       //등등
-      console.log(result);
+      // console.log(result);
       switch (result) {
         case "result-ac":
           return "success";
@@ -293,6 +389,14 @@ export default {
     resultToText,
     levelToTier,
     levelToTierImage,
+    toPercent: function(data) {
+      let result =
+        data >= 50
+          ? "상위 " + (100 - data).toFixed(2) + "%"
+          : "하위 " + data.toFixed(2) + "%";
+      console.log(result);
+      return result;
+    },
     //테이블 컬러 선택
     //구립니다;;;
     addClassColor: function(result) {
@@ -321,9 +425,8 @@ export default {
 
     // 시간 메모리 없을때 - Null
     intNotNull: function(val) {
-      if (val === "0" || val === "") return 0;
       //콤마추가
-      else return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return val ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0";
     }
   }
 };
