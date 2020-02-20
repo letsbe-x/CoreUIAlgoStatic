@@ -1,20 +1,5 @@
 <template>
   <div class="algorecommend">
-    <CCard accent-color="info">
-      <CCardHeader>
-        <div class="flex display-1 font-weight-bold">알고리즘 문제 추천!</div>
-      </CCardHeader>
-      <CCardBody>
-        <!-- {{user_id}} -->
-        <blockquote class="blockquote">
-          <p>검색하고자 하는 알고리즘을 풀었던 실력을 기반으로 알고리즘 문제를 추천해줍니다.</p>
-          <p>알고리즘 실력 측정 기준 : 이미 풀었던 문제들의 평균 난이도(랭크)과 비슷하거나 그 이상의 문제를 추천</p>
-          <p>예시) 푼 문제들 중 DP에 해당하는 문제의 평균 난이도가 골드2일 경우 골드2의 80%수준인 골드1 이상의 문제를 추천</p>
-          <p>풀었던 문제는 제외되고 해당 알고리즘 유형의 문제를 한번도 풀지 않았다면 푼 사람이 많은 순으로 문제를 추천합니다</p>
-        </blockquote>
-      </CCardBody>
-    </CCard>
-
     <v-container fluid>
       <v-row align="center">
         <v-col cols="12">
@@ -104,6 +89,22 @@
         </v-list-item>
       </v-list>
     </v-expand-transition>
+
+    <CCard accent-color="info">
+      <CCardHeader>
+        <div class="flex display-1 font-weight-bold">알고리즘 문제 추천!</div>
+      </CCardHeader>
+      <CCardBody>
+        <!-- {{user_id}} -->
+        <blockquote class="blockquote">
+          <p>검색하고자 하는 알고리즘을 풀었던 실력을 기반으로 알고리즘 문제를 추천해줍니다.</p>
+          <p>알고리즘 실력 측정 기준 :</p>
+          <p>이미 풀었던 문제들의 평균 난이도(랭크)과 비슷하거나 그 이상의 문제를 추천</p>
+          <p>예시) 푼 문제들 중 DP에 해당하는 문제의 평균 난이도가 골드2일 경우 골드2의 80%수준인 골드1 이상의 문제를 추천</p>
+          <p>풀었던 문제는 제외되고 해당 알고리즘 유형의 문제를 한번도 풀지 않았다면 푼 사람이 많은 순으로 문제를 추천합니다</p>
+        </blockquote>
+      </CCardBody>
+    </CCard>
   </div>
 </template>
 <script>
@@ -114,14 +115,14 @@ export default {
   props: {
     user_id: {
       type: String,
-      default: '-',
-      required : true
+      default: "-",
+      required: true
     }
   },
   data: () => ({
     items: [],
     searchInput: "",
-    value: [],
+    value: []
   }),
   mounted() {
     this.getEntireAlgorithmTagInfo().then(response => {
@@ -172,8 +173,8 @@ export default {
             let percentCompleted = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
             );
-            // console.log(progressEvent.lengthComputable);
-            // console.log(percentCompleted);
+            console.log(progressEvent.lengthComputable);
+            console.log(percentCompleted);
           }
         })
         .then(response => {
@@ -203,7 +204,7 @@ export default {
           }
         })
         .then(response => {
-          console.log(" :: "+response.data);
+          console.log(" :: " + response.data);
           return response.data;
         })
         .catch(function(error) {
