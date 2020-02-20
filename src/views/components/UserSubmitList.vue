@@ -31,8 +31,16 @@
             </v-tooltip>
           </div>
         </td>
-        <td slot="title" slot-scope="{item}">
-          <div>{{item.problem_title}}</div>
+        <td slot="problem_title" slot-scope="{item}" >
+         <div class="text-center"> 
+           
+          <a :href="'https://www.acmicpc.net/problem/' + item.problem_id " style="color: black"> {{item.problem_title}} 
+          <CIcon :content="cilexternalink" size="sm"/>
+         
+           </a>
+
+           </div>
+               
           <!--분류모음
            <div class="small text-muted" v-for(data in item.classification)>{{data.full_name_ko}}</div>
           -->
@@ -100,6 +108,7 @@
 </template>
 
 <script>
+import { cilExternalLink } from '@coreui/icons'
 import moment from "moment";
 import "moment/min/locales";
 moment.locale("ko");
@@ -166,13 +175,17 @@ export default {
         });
         // this.$set(this.tableItems,tempItems)
         this.tableItems = tempItems;
-        console.log(this.tableItems)
+        console.log(this)
+        this.$forceUpdate();
+
       }
     }
   },
   data() {
     return {
       //구려;;;
+    
+      cilexternalink: cilExternalLink,
       test: 50.1,
       testItems: [
         {
@@ -244,6 +257,7 @@ export default {
     this.search();
     this.getPaginationInfo().then(response => {
       this.pagination = response;
+      this.$forceUpdate();
     });
   },
 
@@ -449,5 +463,6 @@ export default {
 };
 </script>
 
-<style>
+<style >
+@import url("https://unpkg.com/@coreui/icons/css/all.min.css");
 </style>
