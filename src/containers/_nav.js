@@ -24,7 +24,7 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Recommand',
+        name: 'Recommend',
         to: 'recommend',
         icon: 'cil-star',
         // badge: {

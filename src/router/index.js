@@ -40,13 +40,6 @@ export default new Router({
   linkActiveClass: "active",
   scrollBehavior: () => ({ y: 0 }),
   routes: configRoutes(),
-  beforeEnter: function(to, from, next) {
-    // 인증 값 검증 로직 추가
-    console.warn(to);
-    console.warn(from);
-    console.warn(next);
-    next("/");
-  }
 });
 
 function configRoutes() {
