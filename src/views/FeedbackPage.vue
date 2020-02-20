@@ -2,11 +2,11 @@
   <v-container fluid grid-list-md :style="{textAlign:'center'}">
     <v-layout row wrap>
       <v-flex xs12 sm12 md12 lg12 x12 align="center">
-        <v-card class="mx-2 pa-2 elevation-3">
-          <div class="flex display-1 font-weight-bold">문제 해결에 사용된 주력 언어</div>
-          <!-- UserproblemsMistakeTypeChart -->
-          <UserSubmitLanguageGraph :user_id="user_id"></UserSubmitLanguageGraph>
-        </v-card>
+        <GeneralComment :user_id="user_id"></GeneralComment>
+      </v-flex>
+      <v-flex xs12 sm12 md12 lg12 x12 align="center">
+        <!-- UserproblemsMistakeTypeChart -->
+        <UserSubmitLanguageGraph :user_id="user_id"></UserSubmitLanguageGraph>
       </v-flex>
       <v-flex xs12 sm12 md12 lg12 x12 align="center">
         <v-card class="mx-2 pa-2 elevation-3">
@@ -19,13 +19,6 @@
         <v-card class="mx-2 pa-2 elevation-3">
           <div class="flex display-2 font-weight-bold">가장 많이 실수하는 알고리즘 유형</div>
           <UserproblemsMistakeTypeChart :user_id="user_id"></UserproblemsMistakeTypeChart>
-        </v-card>
-      </v-flex>
-
-      <v-flex xs12 sm12 md12 lg12 x12 align="center">
-        <v-card class="mx-2 pa-2 elevation-3">
-          <div class="flex display-2 font-weight-bold">가장 많이 실수하는 알고리즘 유형</div>
-          <GeneralComment :user_id="user_id"></GeneralComment>
         </v-card>
       </v-flex>
     </v-layout>
@@ -48,8 +41,7 @@ export default {
     }
   },
   data() {
-    return {
-    };
+    return {};
   },
   components: {
     GeneralComment: GeneralComment,
@@ -59,3 +51,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.header_card {
+  font-weight: 500;
+  line-height: 1.2;
+}
+</style>>
