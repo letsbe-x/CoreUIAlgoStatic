@@ -120,6 +120,7 @@ export default {
 <style scoped>
 .small {
   max-width: 300px;
+  margin:0 auto; 
   
 }
 </style>

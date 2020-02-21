@@ -144,5 +144,7 @@ export default {
 <style scoped>
 .small {
   max-width: 300px;
+  text-align: center;
+  margin:0 auto; 
 }
 </style>

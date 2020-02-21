@@ -3,7 +3,7 @@
     <CCol md="12">
       <CCard>
         <CCardHeader class="card-title header_card">
-          <h4>문제 해결에 사용된 주력 언어</h4>
+               <div class="flex display-1 font-weight-bold">문제 해결에 사용한 주력 언어</div>
         </CCardHeader>
         <CCardBody>
           <GChart

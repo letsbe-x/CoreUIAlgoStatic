@@ -22,30 +22,7 @@
 
           <div style="text-align:center;" id="domainDynamicDimension-a"></div>
         </CCardBody>
-        <CCardFooter>
-          <CRow class="text-center">
-            <CCol md sm="12" class="mb-sm-3 mb-0">
-              <div class="text-muted">제출수</div>
-              <strong>0 (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="success" :value="0" />
-            </CCol>
-            <CCol md sm="12" class="mb-sm-3 mb-0 d-md-down-none">
-              <div class="text-muted">도전한 문제</div>
-              <strong>0 (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="info" :value="0" />
-            </CCol>
-            <CCol md sm="12" class="mb-sm-3 mb-0">
-              <div class="text-muted">맞은 문제</div>
-              <strong>0 (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="warning" :value="0" />
-            </CCol>
-            <CCol md sm="12" class="mb-sm-3 mb-0">
-              <div class="text-muted">성공율</div>
-              <strong>0 (0%)</strong>
-              <CProgress class="progress-xs mt-2" :precision="1" color="danger" :value="0" />
-            </CCol>
-          </CRow>
-        </CCardFooter>
+       
       </CCard>
     </CCol>
   </CRow>
