@@ -4,7 +4,7 @@
       <CCol sm="12" md="12">
         <CCard accent-color="danger">
           <CCardHeader class="card-title header_card">
-            <h4>가장 많이 실수하는 알고리즘 유형</h4>
+                <div class="flex display-1 font-weight-bold">취약점 분석</div>
           </CCardHeader>
           <CCardBody class="text-body">
             <span
@@ -104,14 +104,14 @@ export default {
 </script>
 <style scoped>
 .text-body {
-  height: 200px;
+  height: auto;
+  text-align: center;
   /* background-color: rgba(0, 0, 0, 0.85); */
   padding: 30px;
   color: #f0f0f0;
   font-size: 1.45em;
   line-height: 1.4em;
   font-weight: 500;
-  text-align: left;
   overflow: hidden;
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
