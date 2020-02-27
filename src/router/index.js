@@ -48,7 +48,7 @@ function configRoutes() {
           let flag = res.data;
           if (flag) next();
           else {
-            console.log("not Allows User")
+            // console.log("not Allows User")
             next(`/?msg=${user_id}`)
           }
         });

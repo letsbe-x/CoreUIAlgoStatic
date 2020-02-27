@@ -61,7 +61,9 @@
         </div>
       </div>
     </v-card>
-    <notification :snackbar="true" :msg='msg' />
+    <v-if="isShow">
+      <notification :msg='msg' />
+    </v-if>
   </div>
 </template>
 
@@ -77,8 +79,16 @@ export default {
   components: {
     notification
   },
+  watch:{
+    msg : function(newMessage){
+      this.show = false;
+      this.show = this.msg!=null;
+    }
+  },
   data() {
     return {
+      show : false,
+      snackbar : false,
       searchQuery: ""
     };
   },
