@@ -12,25 +12,11 @@ const Dashboard = () => import("@/views/Dashboard");
 const Feedback = () => import("@/views/FeedbackPage");
 const Recommend = () => import("@/views/RecommendAlgo");
 
-// Views - Icons
-// const CoreUIIcons = () => import("@/views/icons/CoreUIIcons");
-// const Brands = () => import("@/views/icons/Brands");
-// const Flags = () => import("@/views/icons/Flags");
-
-// // Views - Notifications
-// const Alerts = () => import("@/views/notifications/Alerts");
-// const Badges = () => import("@/views/notifications/Badges");
-// const Modals = () => import("@/views/notifications/Modals");
-
 // Views - Pages
 const Page404 = () => import("@/views/pages/Page404");
 const Page500 = () => import("@/views/pages/Page500");
 const Login = () => import("@/views/pages/Login");
 const Register = () => import("@/views/pages/Register");
-
-// // Users
-// const Users = () => import("@/views/users/Users");
-// const User = () => import("@/views/users/User");
 
 Vue.use(Router);
 
@@ -40,13 +26,6 @@ export default new Router({
   linkActiveClass: "active",
   scrollBehavior: () => ({ y: 0 }),
   routes: configRoutes()
-  // beforeEnter: function(to, from, next) {
-  //   // 인증 값 검증 로직 추가
-  //   console.warn(to);
-  //   console.warn(from);
-  //   console.warn(next);
-  //   next("/");
-  // }
 });
 
 function configRoutes() {
@@ -54,7 +33,9 @@ function configRoutes() {
     {
       path: "/",
       name: "Search",
-      component: Search
+      component: Search,
+      //q로 유저 정보 리턴
+      props: (route) => ({ msg: route.query.msg })
     },
     {
       path: "/:user_id",
@@ -68,7 +49,7 @@ function configRoutes() {
           if (flag) next();
           else {
             console.log("not Allows User")
-            // next('/')
+            next(`/?msg=${user_id}`)
           }
         });
       },
