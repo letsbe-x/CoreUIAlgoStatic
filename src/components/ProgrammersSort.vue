@@ -1,43 +1,83 @@
 <template>
-<div class="card">
+<div class="ccard">
   <h5 class="card-header">국내에서 코딩테스트를 가장 많이 운영해온 프로그래머스 팀이 코딩테스트 결과를 분석해서 만든 고득점 Kit. 코딩테스트에 자주 나오는 유형, 사람들이 많이 틀리는 유형을 간추렸습니다.</h5>
+  
+    <v-container fluid grid-list-md>
+          <v-layout row wrap>
+            <v-flex
+              xs12
+              sm6
+              md3
+              v-for="(item, index) in algo_data_arr"
+              :key="index"
+            >
+              <v-card height="100%">
+                <v-card-title class="font-weight-bold justify-center">
+                 
+                  {{ item.name }}
+                </v-card-title>
+
+                <v-card-text class="text-primary">
+                  <div v-if="item.count>=0">내가 푼 문제 수 : {{ item.count }}</div>
+
+                </v-card-text>
+  
+        
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+  
+  
   <div class="card-body">
-    <h5 class="card-title">참조 : 프로그래머스 자료</h5>
-    <p class="card-text">해싱 : {{Hashing}} 개</p>
-    <p class="card-text">큐 : {{Queue}} 개</p>
-    <p class="card-text">완전 탐색 : {{Bruteforcing}} 개</p>
-    <p class="card-text">동적 계획법 : {{DP}} 개</p>
-    <p class="card-text">너비 우선 탐색 : {{BFS}} 개</p>
-    <p class="card-text">그래프 : {{Graph}} 개</p>
-    <p class="card-text">스택 : {{Stack}} 개</p>
-    <p class="card-text">정렬 : {{Sorting}} 개</p>
-    <p class="card-text">그리디 : {{Greedy}} 개</p>
-    <p class="card-text">깊이 우선 탐색 : {{DFS}} 개</p>
-    <p class="card-text">이분 탐색 : {{Binary_search}} 개</p>
+   
   </div>
 </div>
 </template>
 
 
 <script>
+
 const _SERVER = "http://localhost:8080";
 const axios = require("axios");
 export default {
   name: "ProgrammersSort",
+  components:{
+    
+  },
   data() {
     return {
+      chartOptions: {
+        hoverBorderWidth: 20
+      },
+      chartData: {
+        hoverBackgroundColor: "red",
+        hoverBorderWidth: 10,
+        labels: ["Green", "Red", "Blue"],
+        datasets: [
+          {
+            label: "Data One",
+            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
+            data: [1, 10, 5]
+          }
+        ]
+      },
+    
       id: null,
-      Hashing: 0,
-      Queue : 0,
-      Bruteforcing : 0,
-      DP : 0,
-      BFS : 0,
-      Graph : 0,
-      Stack : 0,
-      Sorting : 0,
-      Greedy : 0,
-      DFS : 0,
-      Binary_search:0
+      Hashing: { name : "해싱" , count : 0},
+      Queue : { name : "큐" , count : 0},
+      Bruteforcing : { name : "완전 탐색" , count : 0},
+      DP : { name : "동적 계획법" , count : 0},
+      BFS : { name : "BFS:너비 우선 탐색" , count : 0},
+      Graph : { name : "그래프" , count : 0},
+      Stack : { name : "스택" , count : 0},
+      Sorting : { name : "정렬" , count : 0},
+      Greedy : { name : "그리디" , count : 0},
+      DFS : { name : "DFS:깊이 우선 탐색" , count : 0},
+      Binary_search:{ name : "이분탐색" , count : 0},
+      reserved:{ name : "추가예정입니다" , count : -1},
+      algo_data_arr:[]
+
     };
   },
   props: {
@@ -56,29 +96,53 @@ export default {
         data = response.data;
         // console.log(data)
         var res = [];
+      
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const element = data[key];
+               
                 for (let index = 0; index < element.length; index++) {
-                    // console.log(element[index])
-                    if(element[index]._id=="Queue") this.Queue=element[index].count;
-                    if(element[index]._id=="Greedy")this.Greedy=element[index].count;
-                    if(element[index]._id=="Hashing")this.Hashing=element[index].count;
-                    if(element[index]._id=="Binary search")this.Binary_search=element[index].count;
-                    if(element[index]._id=="Bruteforcing")this.Bruteforcing=element[index].count;
-                    if(element[index]._id=="DP")this.DP=element[index].count;
-                    if(element[index]._id=="BFS")this.BFS=element[index].count;
-                    if(element[index]._id=="Graph theory")this.Graph+=element[index].count;
-                    if(element[index]._id=="Graph traversal")this.Graph+=element[index].count;
-                    if(element[index]._id=="Stack")this.Stack=element[index].count;
-                    if(element[index]._id=="Sorting")this.Sorting=element[index].count;
-                    if(element[index]._id=="DFS")this.DFS=element[index].count;
+                
+                     if(element[index]._id=="Queue") this.Queue.count=element[index].count;
+                    if(element[index]._id=="Greedy")this.Greedy.count=element[index].count;
+                    if(element[index]._id=="Hashing")this.Hashing.count=element[index].count;
+                    if(element[index]._id=="Binary search")this.Binary_search.count=element[index].count;
+                    if(element[index]._id=="Bruteforcing")this.Bruteforcing.count=element[index].count;
+                    if(element[index]._id=="DP")this.DP.count=element[index].count;
+                    if(element[index]._id=="BFS")this.BFS.count=element[index].count;
+                    if(element[index]._id=="Graph theory")this.Graph.count+=element[index].count;
+                    if(element[index]._id=="Graph traversal")this.Graph.count+=element[index].count;
+                    if(element[index]._id=="Stack")this.Stack.count=element[index].count;
+                    if(element[index]._id=="Sorting")this.Sorting.count=element[index].count;
+                    if(element[index]._id=="DFS")this.DFS.count=element[index].count;
+                     
                 }
+
+               this.algo_data_arr.push(this.Hashing);
+               this.algo_data_arr.push(this.Queue);
+               this.algo_data_arr.push(this.Bruteforcing);
+               this.algo_data_arr.push(this.DP);
+               this.algo_data_arr.push(this.BFS);
+               this.algo_data_arr.push(this.Graph);
+               this.algo_data_arr.push(this.Stack);
+               this.algo_data_arr.push(this.Sorting);
+               this.algo_data_arr.push(this.Greedy);
+               this.algo_data_arr.push(this.DFS);
+               this.algo_data_arr.push(this.Binary_search);
+               this.algo_data_arr.push(this.reserved);
+            
+    
                 
             }
         }
 
       });
-  }
+  },
+  methods: {
+
+ 
+  },
 };
 </script>
+
+
