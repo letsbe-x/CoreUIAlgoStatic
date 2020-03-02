@@ -3,13 +3,13 @@
     <CCard accent-color="info">
       <CCardHeader>
         <div class="flex display-1 font-weight-bold">
-          하루동안 유저들이 많이 시도한 문제들
+          최근 6시간동안 유저들이 많이 시도한 문제들
         </div>
       </CCardHeader>
       <CCardBody>
         <!-- {{user_id}} -->
         <blockquote class="blockquote">
-          <p>최근 24시간동안 백준 유저들이 많이 시도한 문제들입니다.</p>
+          <p>최근 6시간동안 백준 유저들이 많이 시도한 문제들입니다.</p>
           <p></p>
         </blockquote>
 
