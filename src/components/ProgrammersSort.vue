@@ -21,7 +21,8 @@
                   <div v-if="item.count>=0">내가 푼 문제 수 : {{ item.count }}</div>
 
                 </v-card-text>
-  
+                
+               
         
               </v-card>
             </v-flex>
@@ -30,35 +31,61 @@
   
   
   <div class="card-body">
-   
+    <pie-chart v-if="chartload" :data="chartData" :options="chartOptions"  ></pie-chart>
   </div>
 </div>
 </template>
 
 
 <script>
-
-const _SERVER = "http://localhost:8080";
+const _SERVER = "http://13.125.147.223:8080";
+//const _SERVER = "http://localhost:8080";
 const axios = require("axios");
+import PieChart from "@/components/Chart/Pie.js";
+
 export default {
   name: "ProgrammersSort",
   components:{
-    
+    'pie-chart':PieChart
   },
   data() {
     return {
+
+      chartload:false,
       chartOptions: {
-        hoverBorderWidth: 20
+        hoverBorderWidth: 5,
+        hoverBackgroundColor:'red',
+            responsive: true,
+                    maintainAspectRatio: false
       },
       chartData: {
-        hoverBackgroundColor: "red",
-        hoverBorderWidth: 10,
-        labels: ["Green", "Red", "Blue"],
+        hoverBorderWidth: 5,
+        labels: [],
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
-            data: [1, 10, 5]
+            label: "알고리즘 분류",
+            backgroundColor: [
+              "rgba(255, 0, 0, 0.4)",
+              "rgba(255, 159, 64, 0.6)",
+              "rgba(255, 205, 86, 0.6)",
+              "rgba(75, 192, 192, 0.6)",
+              "rgba(54, 162, 235, 0.6)",
+
+              "rgba(215, 100, 240, 0.6)",
+              "rgba(63, 246, 39, 0.5)",
+              "rgba(255, 118, 38, 0.6)",
+
+               "rgba(39, 63, 246, 0.5)",
+              "rgba(231, 84, 172, 0.5)",
+              "rgba(20, 132, 250, 0.5)",
+      
+            ],
+           
+            pointBackgroundColor: "rgba(179,181,198,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: []
           }
         ]
       },
@@ -130,16 +157,41 @@ export default {
                this.algo_data_arr.push(this.DFS);
                this.algo_data_arr.push(this.Binary_search);
                this.algo_data_arr.push(this.reserved);
-            
+
+               
+
+              
     
                 
             }
         }
 
+         this.algo_data_arr.forEach(algo => {
+               
+
+                if(algo.count>=0){
+                 this.chartData.labels.push(algo.name);
+                 this.chartData.datasets[0].data.push(algo.count);
+  
+                }
+                 // 
+
+
+                  
+               });
+
+        this.chartload=true;
+
+
       });
   },
   methods: {
-
+       dynamicColors : function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + ",0.4)";
+         }
  
   },
 };

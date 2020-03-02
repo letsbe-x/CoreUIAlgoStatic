@@ -2,9 +2,15 @@ import { Pie } from 'vue-chartjs'
 
 export default {
   extends: Pie,
-  props: ['chartdata', 'options'],
+  props: ['data', 'options'],
   mounted () {
-    this.renderChart(this.chartdata, this.options);
+    this.renderChart(this.data, this.options);
                                 
   }
+  ,
+  watch: {
+    data(){
+      this.renderChart(this.data, this.options);
+    }
+  },
 }
