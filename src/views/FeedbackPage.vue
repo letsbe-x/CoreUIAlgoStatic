@@ -22,6 +22,12 @@
           <UserproblemsMistakeTypeChart :user_id="user_id"></UserproblemsMistakeTypeChart>
         </v-card>
       </v-flex>
+      <v-flex xs12 sm12 md12 lg12 x12 align="center">
+        <v-card class="mx-2 pa-2 elevation-3 justify-center">
+          <div class="flex display-1 font-weight-bold">코딩테스트 고득점 Kit 알고리즘</div>
+          <ProgrammersSort :user_id="user_id"></ProgrammersSort>
+        </v-card>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -32,6 +38,7 @@ import UserSubmitLanguageGraph from "@/components/UserLanguageChart/UserSubmitLa
 import UserSolvedAlgoTypeGraph from "@/components/UserProblemTypeChart/UserSolvedAlgoTypeGraph.vue";
 import UserproblemsMistakeTypeChart from "@/components/UserproblemsMistakeTypeChart/UserproblemsMistakeTypeChart.vue";
 import GeneralComment from "@/components/GeneralComment.vue";
+import ProgrammersSort from "@/components/ProgrammersSort.vue";
 
 export default {
   props: {
@@ -45,6 +52,7 @@ export default {
     return {};
   },
   components: {
+    ProgrammersSort : ProgrammersSort,
     GeneralComment: GeneralComment,
     UserSubmitLanguageGraph: UserSubmitLanguageGraph,
     UserSolvedAlgoTypeGraph: UserSolvedAlgoTypeGraph,
