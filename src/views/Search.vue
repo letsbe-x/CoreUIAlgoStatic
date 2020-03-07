@@ -61,9 +61,7 @@
         </div>
       </div>
     </v-card>
-    <v-if="isShow">
-      <notification :msg='msg' />
-    </v-if>
+      <notification v-if="show" :msg='msg'></notification>
   </div>
 </template>
 
@@ -81,7 +79,6 @@ export default {
   },
   watch:{
     msg : function(newMessage){
-      this.show = false;
       this.show = this.msg!=null;
     }
   },
