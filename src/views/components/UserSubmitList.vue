@@ -20,27 +20,28 @@
             <!--hover-->
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <img
+                <v-img
+                  width="30"
+                  height="30"
                   :src="item.level|levelToTierImage"
-                  class="c-avatar-img"
                   :title="item.level"
                   v-on="on"
+                  aspect-ratio="1"
+                  contain
                 />
               </template>
               <span>{{item.level|levelToTier}}</span>
             </v-tooltip>
           </div>
         </td>
-        <td slot="problem_title" slot-scope="{item}" >
-         <div class="text-center"> 
-           
-          <a :href="'https://www.acmicpc.net/problem/' + item.problem_id " style="color: black"> {{item.problem_title}} 
-          <CIcon :content="cilexternalink" size="sm"/>
-         
-           </a>
+        <td slot="problem_title" slot-scope="{item}">
+          <div class="text-center">
+            <a :href="'https://www.acmicpc.net/problem/' + item.problem_id " style="color: black">
+              {{item.problem_title}}
+              <CIcon :content="cilexternalink" size="sm" />
+            </a>
+          </div>
 
-           </div>
-               
           <!--분류모음
            <div class="small text-muted" v-for(data in item.classification)>{{data.full_name_ko}}</div>
           -->
@@ -108,7 +109,7 @@
 </template>
 
 <script>
-import { cilExternalLink } from '@coreui/icons'
+import { cilExternalLink } from "@coreui/icons";
 import moment from "moment";
 import "moment/min/locales";
 moment.locale("ko");
@@ -139,8 +140,7 @@ export default {
 
         // this.tableItems.forEach(element => {
         tempItems.forEach(element => {
-          element.rankimg =
-            "https://solved.ac/res/tier-small/" + element.level + ".svg";
+          // element.rankimg = "img/rank/" + element.level + ".svg";
           element.timeRank = 0;
           element.memoryRank = 0;
           if (element.result == "result-ac") {
@@ -175,16 +175,15 @@ export default {
         });
         // this.$set(this.tableItems,tempItems)
         this.tableItems = tempItems;
-        console.log(this)
+        console.log(this);
         this.$forceUpdate();
-
       }
     }
   },
   data() {
     return {
       //구려;;;
-    
+
       cilexternalink: cilExternalLink,
       test: 50.1,
       testItems: [
@@ -326,8 +325,7 @@ export default {
         //this.tableItems=   this.tableItems .concat (response);
 
         newRecordArr.forEach(element => {
-          element.rankimg =
-            "https://solved.ac/res/tier-small/" + element.level + ".svg";
+          element.rankimg = "img/rank/" + element.level + ".svg";
           element.timeRank = 0;
           element.memoryRank = 0;
           if (element.result == "result-ac") {

@@ -2,16 +2,11 @@
   <div class="algorecommend">
     <CCard accent-color="info">
       <CCardHeader>
-        <div class="flex display-1 font-weight-bold">
-
-          최근 6시간동안 유저들이 많이 시도한 문제들
-
-        </div>
+        <div class="flex display-1 font-weight-bold">최근 6시간동안 유저들이 많이 시도한 문제들</div>
       </CCardHeader>
       <CCardBody>
         <!-- {{user_id}} -->
         <blockquote class="blockquote">
-
           <p>최근 6시간동안 백준 유저들이 많이 시도한 문제들입니다.</p>
 
           <p></p>
@@ -19,13 +14,7 @@
 
         <v-container fluid grid-list-md>
           <v-layout row wrap>
-            <v-flex
-              xs12
-              sm6
-              md3
-              v-for="(item, index) in mostTryingProblemlist"
-              :key="index"
-            >
+            <v-flex xs12 sm6 md3 v-for="(item, index) in mostTryingProblemlist" :key="index">
               <v-card height="100%">
                 <v-card-title class="font-weight-bold">
                   <div>
@@ -33,7 +22,7 @@
                       width="20"
                       height="20"
                       :src="
-                        'https://solved.ac/res/tier-small/' +
+                        'img/rank/' +
                           item.level +
                           '.svg'
                       "
@@ -111,13 +100,9 @@
             <v-list-item v-for="(field, i) in value" :key="i">
               <v-list-item-content>
                 <v-list-item-title>
-                  <div class="flex display-1 font-weight-bold">
-                    {{ field.tagname }}
-                  </div>
+                  <div class="flex display-1 font-weight-bold">{{ field.tagname }}</div>
                 </v-list-item-title>
-                <v-list-item-subtitle
-                  v-text="field.taginfo"
-                ></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="field.taginfo"></v-list-item-subtitle>
                 <v-container fluid grid-list-md>
                   <v-layout row wrap v-if="field.problem_list != null">
                     <v-flex
@@ -134,7 +119,7 @@
                               width="20"
                               height="20"
                               :src="
-                                'https://solved.ac/res/tier-small/' +
+                                'img/rank/' +
                                   item.level +
                                   '.svg'
                               "
@@ -196,10 +181,8 @@
   </div>
 </template>
 <script>
-
 const _SERVER = "http://13.125.147.223:8080";
 //const _SERVER = "http://localhost:8080";
-
 
 const axios = require("axios");
 export default {
@@ -227,8 +210,6 @@ export default {
       // console.log("mounted :: "+response);
       this.mostTryingProblemlist = response;
     });
-
-
   },
 
   watch: {
@@ -313,8 +294,8 @@ export default {
     },
 
     getRecentMostTryingProblems: function() {
-      let now_timestamp =  new Date()*1;
-      let from_timestamp = new Date(now_timestamp - 6 * 60 * 60 * 1000)*1;
+      let now_timestamp = new Date() * 1;
+      let from_timestamp = new Date(now_timestamp - 6 * 60 * 60 * 1000) * 1;
 
       let url =
         `${_SERVER}/recommend/problem/trymost/` +
@@ -322,9 +303,9 @@ export default {
         "/" +
         now_timestamp;
 
-      console.log( now_timestamp, from_timestamp);
+      console.log(now_timestamp, from_timestamp);
 
-       return axios
+      return axios
         .get(url, {
           onDownloadProgress: progressEvent => {
             let percentCompleted = Math.round(
@@ -341,7 +322,6 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-
     }
   },
   filters: {
