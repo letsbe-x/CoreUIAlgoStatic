@@ -91,10 +91,10 @@ export default {
   data() {
     return {
       user_info: {
-        user_id: "-",
-        solved: "0",
-        boj_submission_count: "0",
-        boj_solved_count: "0"
+        user_id: 0,
+        solved: 0,
+        boj_submission_count: 0,
+        boj_solved_count: 0
       }
     };
   },
