@@ -1,8 +1,8 @@
 <template>
   <CSidebar fixed :minimize="minimize" :show.sync="show">
     <CSidebarBrand
-      :imgFull="{ width: 180, height: 60, alt: 'Logo', src: 'img/Menu_800_400.png'}"
-      :imgMinimized="{ width: 180, height: 60, alt: 'Logo', src: 'img/Menu_800_400.png'}"
+      :imgFull="{ width: 180, height: 60, alt: 'Logo', src: 'img/menu_800_400.png'}"
+      :imgMinimized="{ width: 180, height: 60, alt: 'Logo', src: 'img/menu_800_400.png'}"
       :wrappedInLink="{ href: '/'}"
     ></CSidebarBrand>
     <br />
