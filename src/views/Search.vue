@@ -92,7 +92,7 @@ export default {
   methods: {
     submit() {
       //대문자 -> 소문자
-      this.$router.push("/" + this.searchQuery.toLowerCase());
+      this.$router.push("/" + this.searchQuery);
     }
   }
 };
