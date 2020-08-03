@@ -271,7 +271,7 @@ The component will reset button browser styles
   height: var(--uiaFieldHeight); /* 1 */
   padding-top: 0;
   padding-bottom: 0;
-  padding-left: var(--uiaFieldPaddingLeft); /* 3 */
+  padding-left: var(--uiaFieldPaddingLeft);
 }
 
 .a-field__input::-webkit-input-placeholder {

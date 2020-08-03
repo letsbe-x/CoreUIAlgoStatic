@@ -76,7 +76,7 @@ import { CChartLineSimple, CChartBarSimple } from "../charts/index.js";
 import axios from "axios";
 import sucessRate from "@/filters/sucessRate";
 import intNotNull from "@/filters/int_notNull";
-const _SERVER = "http://13.125.147.223:8080";
+const _SERVER = "http://13.124.8.201:8080";
 //const _SERVER = "http://localhost:8080";
 
 export default {

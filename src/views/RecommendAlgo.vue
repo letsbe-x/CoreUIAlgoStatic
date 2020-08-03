@@ -181,7 +181,7 @@
   </div>
 </template>
 <script>
-const _SERVER = "http://13.125.147.223:8080";
+const _SERVER = "http://13.124.8.201:8080";
 //const _SERVER = "http://localhost:8080";
 
 const axios = require("axios");

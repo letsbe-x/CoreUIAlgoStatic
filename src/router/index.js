@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 // @TODO : action으로 변경
 import axios from "axios";
-const _SERVER = "http://13.125.147.223:8080";
+const _SERVER = "http://13.124.8.201:8080";
 // Containers
 const TheContainer = () => import("@/containers/TheContainer");
 

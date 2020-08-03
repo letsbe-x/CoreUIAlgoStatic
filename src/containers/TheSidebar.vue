@@ -1,8 +1,7 @@
 <template>
   <CSidebar fixed :minimize="minimize" :show.sync="show">
     <CSidebarBrand
-      :imgFull="{ width: 180, height: 60, alt: 'Logo', src: 'img/menu_800_400.png'}"
-      :imgMinimized="{ width: 180, height: 60, alt: 'Logo', src: 'img/menu_800_400.png'}"
+      :imgFull="{ width: 180, height: 80, alt: 'Logo', src: 'img/menu_800_400.png'}"
       :wrappedInLink="{ href: '/'}"
     ></CSidebarBrand>
     <br />
@@ -10,7 +9,7 @@
     <!-- <CSidebarMinimizer
       class="d-md-down-none"
       @click.native="minimize = !minimize"
-    />-->
+    /> -->
   </CSidebar>
 </template>
 
@@ -38,3 +37,8 @@ export default {
   }
 };
 </script>
+<style scope>
+ ul{
+  padding-left : 0px !important
+ }
+</style>

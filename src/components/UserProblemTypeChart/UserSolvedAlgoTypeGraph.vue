@@ -38,7 +38,7 @@ var opt = {
 import BarChart from "@/components/Chart/Bar.js";
 const axios = require("axios");
 
-const _SERVER = "http://13.125.147.223:8080";
+const _SERVER = "http://13.124.8.201:8080";
 export default {
   name: "UserSolvedAlgoTypeGraph",
   components: {

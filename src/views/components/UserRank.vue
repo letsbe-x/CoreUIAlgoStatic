@@ -58,7 +58,7 @@ export default {
 
   mounted() {
     return axios
-      .get(`http://13.125.147.223:8080/user/${this.user_id}`)
+      .get(`http://13.124.8.201:8080/user/${this.user_id}`)
       .then(res => {
         this.user_info = res.data.data;
         return res.data.dta;
@@ -69,7 +69,7 @@ export default {
   }
   // asyncData() {
   // return axios
-  //   .get(`http://13.125.147.223:8080/user/${user_id}`)
+  //   .get(`http://13.124.8.201:8080/user/${user_id}`)
   //   .then(res => {
   //     return { user_info: res.data.data };
   //   });

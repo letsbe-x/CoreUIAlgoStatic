@@ -54,7 +54,7 @@
 import { GChart } from "vue-google-charts";
 
 //@TODO : SERVER CONFIG HIDE
-const _SERVER = "http://13.125.147.223:8080";
+const _SERVER = "http://13.124.8.201:8080";
 const axios = require("axios");
 export default {
   name: "UserSubmitLanguageGraph",

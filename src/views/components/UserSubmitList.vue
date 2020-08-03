@@ -119,7 +119,7 @@ import levelToTier from "../../filters/levelToTier.js";
 import levelToTierImage from "../../filters/levelToTierImage.js";
 import resultToText from "../../filters/resultToText.js";
 
-const _SERVER = "http://13.125.147.223:8080";
+const _SERVER = "http://13.124.8.201:8080";
 export default {
   props: {
     user_id: {

@@ -38,7 +38,7 @@ var opt = {
   }
 };
 
-const _SERVER = "http://13.125.147.223:8080";
+const _SERVER = "http://13.124.8.201:8080";
 export default {
   components: {
     "bar-chart": BarChart
